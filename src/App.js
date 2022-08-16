@@ -7,7 +7,11 @@ function App() {
 
   return (
     <>
+<<<<<<< HEAD
       <Appbar />
+=======
+      {/* nav */}
+>>>>>>> 12bafd0300e0acaadf4ed3f8842c72166656d033
       {/* body */}
       {/* signup/sign  */}
       {/* footer */}
