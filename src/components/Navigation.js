@@ -1,7 +1,7 @@
 import React from 'react';
 import { CreateNoteButton } from './Notes';
 
-export default function Appbar() {
+export default function Navigation() {
     return(
         <nav>
             <div>
