@@ -1,35 +1,83 @@
-import React, { useState, useEffect, useContext } from 'react';
-// import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useContext } from 'react';
 import { NotesContext } from '../context';
-import PropTypes from 'prop-types';
-
-//Note View Components
-const NoteView = ({ data }) => {
-
-    return (
-    <div key={`note-`}>
-        <h2>{data.title}</h2>
-        <p>{data.content}</p>
-    </div>
-    )
-}
 
 export const CreateNoteButton = () => {
     const { addNewNote } = useContext(NotesContext);
 
-    return( <button onClick={() => {
+    return( <button 
+        className="button is-success"
+        onClick={() => {
         addNewNote();
         console.log('Created new button');
         }}>+</button> )
 
 }
 
+const EditNoteButton = ({ isEditing, setIsEditing }) => (
+    <button className="button is-warning"
+    onClick={() => setIsEditing(prev => !prev)}>
+        {isEditing ?  <ion-icon name="create-outline"></ion-icon> : <ion-icon name="checkmark-outline"></ion-icon> } 
+    </button>
+)
+
+const DeleteNoteButton = ({ id }) => { 
+
+    //useContext to bind the delete function to this button
+    const { deleteNote }  = useContext(NotesContext);
+
+    return (
+        <button onClick={() => deleteNote(id)}className="button is-danger">
+            <ion-icon name="create-outline"></ion-icon>
+        </button>
+    )   
+}
+
+const NoteView = ({ data }) => {
+
+    const [ isEditing, setIsEditing ] = useState(false);
+
+    const EditView = () => {
+        return(
+            <div>
+                <input type="name" value={data.title} />
+                <div className="" 
+                contentEditable>{data.content}</div>
+            </div>
+        )
+    }
+    
+    const ReadView = () => {
+        return(
+            <>
+                <h2>{data.title}</h2>
+                <p>{data.content}</p>
+            </>
+        )
+    }
+
+    const NoteButtons = () => (
+        <div className="buttons">
+            <EditNoteButton isEditing={isEditing} setIsEditing={setIsEditing} />
+            <DeleteNoteButton id={data.id} />
+        </div>
+    )
+    
+    return (
+        <div key={`note-`}>
+            <div>
+                <NoteButtons />
+            </div>
+            { isEditing ? <EditView /> : <ReadView /> }
+        </div>
+    )
+};
+
 const NoNotesDetected = () => (
     <div>
         <h2>No Notes Yet.</h2>
         <CreateNoteButton />
     </div>
-)
+);
 
 const NotesList = ({ data }) => (
 
@@ -38,8 +86,7 @@ const NotesList = ({ data }) => (
         <NoteView data={note} />
     ))}
     </>
-)
-
+);
 
 export default function Notes() {
 
@@ -47,8 +94,8 @@ export default function Notes() {
 
     return (
         <>
-        {/* { notes.length == 0 ? <NoNotesDetected /> : */}
-         <NotesList data={notes} /> 
+        {notes.length === 0 ? <NoNotesDetected /> :
+         <NotesList data={notes} /> }
         </>
     )
 }
