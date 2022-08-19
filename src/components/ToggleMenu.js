@@ -1,9 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { CreateNoteButton } from './notes/inputs';
 import { Button } from 'react-bulma-components';
-import { NotesList } from './notes/Notes';
+import { NoNotesDetected, NotesList } from './notes/Notes';
+import { NotesContext } from '../context';
 
 export default function Menu() {
+
+    const { notes } = useContext(NotesContext);
 
     const open = useRef(null);
     const onOpen = () => {
@@ -26,8 +29,8 @@ export default function Menu() {
                 <div class="modal-background"></div>
                 <div className="modal-content">
                     <div className="box has-background-white">
-                        <CreateNoteButton />
-                        <NotesList />
+                        {notes.length === 0 ? <NoNotesDetected /> : 
+                        (<CreateNoteButton />, <NotesList />) }
                     </div>
                 </div>
             </div>

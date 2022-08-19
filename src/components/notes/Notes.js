@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { NotesContext } from '../../context';
 import { CreateNoteButton } from './inputs';
+import { Block, Container, Heading } from 'react-bulma-components';
 
 const NoteSummary = ({ data }) => {
     const { getNote } = useContext(NotesContext);
@@ -16,10 +17,12 @@ const NoteSummary = ({ data }) => {
 }
 
 const NoNotesDetected = () => (
-    <div>
-        <h2>No Notes Yet.</h2>
-        <CreateNoteButton />
-    </div>
+    <Container id="no-notes" className="is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center" max>
+        <Block className="is-flex is-align-self-center is-flex-direction-column is-justify-content-center is-align-items-center">
+            <Heading renderAs="h2" weight="semibold">No Notes Yet.</Heading>
+            <CreateNoteButton />
+        </Block>
+    </Container>
 );
 
 const NotesList = () => {

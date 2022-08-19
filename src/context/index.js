@@ -5,14 +5,40 @@ const NotesContext = React.createContext();
 
 function NotesProvider({ children }) {
 
-    const [ notes, setNotes ] = useState(JSON.parse(localStorage.getItem('notes')));
-    const [ selected, setSelected ] = useState(JSON.parse(localStorage.getItem('selected')));
+    // const [ notes, setNotes ] = useState([]);
+    // const [ selected, setSelected ] = useState({});
+
+    const [ notes, setNotes ] = useState(JSON.parse(localStorage.getItem('notes') || '[]'));
+    const [ selected, setSelected ] = useState(JSON.parse(localStorage.getItem('selected') || '{}'));
+
+    useEffect(() => {
+        setNotes(JSON.parse(localStorage.getItem('notes')));
+        setSelected(JSON.parse(localStorage.getItem('selected')));
+    }, []);
+
+
+    // useEffect(() => {
+    //     localStorage.setItem('notes', JSON.stringify(notes));
+    //     localStorage.setItem('selected', JSON.stringify(selected));
+    // }, [notes, selected])
 
     useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes));
         localStorage.setItem('selected', JSON.stringify(selected));
-
     }, [notes, selected]);
+
+    
+    function createNote() {
+        var content = "# Untitled \n empty.";
+        var newNote = {
+            id: uuidv4(), 
+            title: content.split('\n')[0], 
+            content: content,
+            created_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})
+        }
+        setNotes(prev => [...prev, newNote ]);
+        setSelected(newNote);
+    }
 
     function getNote(id) {
         var found = notes.find((note) => {
@@ -21,18 +47,7 @@ function NotesProvider({ children }) {
 
         setSelected(found);
 
-        // console.log(found);
         console.log(selected);
-    }
-
-    function createNote() {
-        setNotes(prev => [...prev, { 
-            id: uuidv4(), 
-            title: '# Untitled', 
-            content: 'empty.',
-            created_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})
-            }
-        ]);
     }
 
     function editNote(id) {

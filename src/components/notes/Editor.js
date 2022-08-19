@@ -1,51 +1,65 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext,  useState } from 'react';
 import { NotesContext } from '../../context';
 import { NoNotesDetected } from './Notes';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
+import { Block, Content, Button, Columns } from 'react-bulma-components';
 
 const rawMarkup = (data) => {
     let raw = DOMPurify.sanitize(marked.parse(data));
-    return {__html: raw};
+    return raw;
 }
 
 const MarkDownEditor = () => {
-
+    const { selected, editNote } = useContext(NotesContext);
+    
+    return (
+        <textarea onInput={() => editNote(selected.id)}>{selected.content}</textarea>
+    )
 }
 
-
-// const HTMLView = () => {
-//     const { selected } = useContext(NotesContext);
-
-//     return (
-//         <>
-//         {rawMarkup(selected.title)}
-//         {rawMarkup(selected.content)}
-//         </>
-//     )
-// }
-
-const TextView = () => {
-
+const HtmlAndTextView = () => {
+    
     const { selected } = useContext(NotesContext);
+    const [ toggle, setToggle ] = useState(false);
+
+    const HtmlView = () => (
+        <Content>
+            <div dangerouslySetInnerHTML={{ __html: rawMarkup(selected.content) }}></div>
+        </Content> 
+    );
+
+    const TextView = () => (
+        <Block>
+            {rawMarkup(selected.content)}
+        </Block>
+    );
 
     return (
         <>
-        <div className="content">
-            <div dangerouslySetInnerHTML={rawMarkup(selected.title)}></div>
-            <div dangerouslySetInnerHTML={rawMarkup(selected.content)}></div>
-        </div>
+        <Button onClick={() => setToggle(prev => !prev)}>{toggle ? "Text" : "HTML"}</Button>
+        {toggle ?  <TextView /> : <HtmlView />}
         </>
     )
 }
 
+
 export default function Editor() {
-    const { selected } = useContext(NotesContext);
+    const { notes } = useContext(NotesContext);
+
+    if(notes.length === 0) {
+        return <NoNotesDetected />
+    }
 
     return (
-        <div key={`note-${selected.id}`}>
-            <TextView />
-        </div>
+        <Columns tablet>
+            <Columns.Column>
+                <MarkDownEditor />            
+            </Columns.Column>
+            <Columns.Column>
+                <HtmlAndTextView />
+            </Columns.Column>
+        </Columns>
     )
 };
 

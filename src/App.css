@@ -1,3 +1,8 @@
-.ignore-css{
-    all: unset;
+.App {
+    height: 100vh;
+}
+
+#no-notes {
+    height: 100vh;
+    display: flex;
 }
