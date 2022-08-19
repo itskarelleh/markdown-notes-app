@@ -1,15 +1,16 @@
 import React from 'react';
+import "./App.css";
 import 'bulma/css/bulma.min.css';
 import Navigation from './components/Navigation';
-import Notes from './components/Notes';
 import { NotesProvider } from './context';
+import Editor from './components/notes/Editor';
 
 function App() {
 
   return (
     <NotesProvider>
         <Navigation/>
-        <Notes />
+        <Editor />
     </NotesProvider>
     );
 }

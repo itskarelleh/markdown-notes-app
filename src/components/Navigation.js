@@ -1,15 +1,15 @@
 import React from 'react';
-import { CreateNoteButton } from './Notes';
+import ToggleMenu from './ToggleMenu';
+import { Navbar } from 'react-bulma-components';
 
 export default function Navigation() {
-    return(
-        <nav>
-            <div>
+    
+    return (
+        <Navbar>
+            <Navbar.Brand>
+            <ToggleMenu />
                 <h1>Notes</h1>
-            </div>
-            <div>
-                <CreateNoteButton />
-            </div>
-        </nav>
-        )
+            </Navbar.Brand>
+        </Navbar>
+    )
 }
