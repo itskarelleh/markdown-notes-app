@@ -1,57 +1,84 @@
-import React, { useContext,  useState } from 'react';
-import { NotesContext } from '../../context';
+import React, { useContext,  useEffect,  useState } from 'react';
+import { NotesContext, EditorContext } from '../../context';
 import { NoNotesDetected } from './Notes';
-import { marked } from 'marked';
-import DOMPurify from 'dompurify';
-import { Block, Content, Button, Columns } from 'react-bulma-components';
+import { rawMarkup } from '../../utils';
+import { Box, Block, Button, Content, Container, Columns } from 'react-bulma-components';
+import { DeleteNoteButton, EditNoteButton } from './inputs';
 
-const rawMarkup = (data) => {
-    let raw = DOMPurify.sanitize(marked.parse(data));
-    return raw;
+// const { isAutosave, toggleAutosave
+const EditorToolbar = () => {
+    const { isTextView, toggleTextView } = useContext(EditorContext);
+
+    return (
+        <Container className="is-flex is-flex-direction-row is-justify-content-center">
+            <Block className="is-inherit">
+                <EditNoteButton /> <DeleteNoteButton />
+            </Block>
+            <Block>
+                <Button onClick={toggleTextView}>{ isTextView ? "Text" : "HTML"}</Button>
+            </Block>
+        </Container>
+    )
+    
 }
 
 const MarkDownEditor = () => {
-    const { selected, editNote } = useContext(NotesContext);
     
+    const { currentContent,  changeCurrentContent } = useContext(EditorContext);
+
     return (
-        <textarea onInput={() => editNote(selected.id)}>{selected.content}</textarea>
+        <>
+            <textarea style={{ height: '100vh' }} 
+            className="textarea has-fixed-size is-fullheight"
+            defaultValue={currentContent} onInput={changeCurrentContent}>
+            </textarea>
+        </>
     )
 }
 
 const HtmlAndTextView = () => {
-    
-    const { selected } = useContext(NotesContext);
-    const [ toggle, setToggle ] = useState(false);
 
+    const { isTextView, currentContent } = useContext(EditorContext);
     const HtmlView = () => (
         <Content>
-            <div dangerouslySetInnerHTML={{ __html: rawMarkup(selected.content) }}></div>
+            <div dangerouslySetInnerHTML={{ __html: rawMarkup(currentContent) }}></div>
         </Content> 
     );
 
     const TextView = () => (
         <Block>
-            {rawMarkup(selected.content)}
+            {rawMarkup(currentContent)}
         </Block>
     );
 
     return (
         <>
-        <Button onClick={() => setToggle(prev => !prev)}>{toggle ? "Text" : "HTML"}</Button>
-        {toggle ?  <TextView /> : <HtmlView />}
+        { isTextView ?  <TextView /> : <HtmlView />}
         </>
     )
 }
 
-
 export default function Editor() {
-    const { notes } = useContext(NotesContext);
+
+    const { notes, selected } = useContext(NotesContext);
+    const { currentContent, setCurrentContent, changeCurrentContent } = useContext(EditorContext);
+    const [prev, setPrev] = useState(null);
+
+    useEffect(() => {
+        setPrev(selected.id);
+        setCurrentContent(selected.content);
+        
+    },[])
 
     if(notes.length === 0) {
         return <NoNotesDetected />
     }
 
     return (
+        <>
+        <Box>
+            <EditorToolbar />
+        </Box>
         <Columns tablet>
             <Columns.Column>
                 <MarkDownEditor />            
@@ -60,6 +87,7 @@ export default function Editor() {
                 <HtmlAndTextView />
             </Columns.Column>
         </Columns>
+        </>
     )
 };
 

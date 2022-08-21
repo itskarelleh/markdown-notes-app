@@ -1,39 +1,30 @@
-import React, { useState, useRef, useContext } from 'react';
-import { CreateNoteButton } from './notes/inputs';
-import { Button } from 'react-bulma-components';
+import React, { useState, useContext } from 'react';
+import { CreateNoteButton, onOpen } from './notes/inputs';
+import { Block, Button, Heading } from 'react-bulma-components';
 import { NoNotesDetected, NotesList } from './notes/Notes';
 import { NotesContext } from '../context';
+import Modal from './Modal';
 
-export default function Menu() {
+export default function ToggleMenu() {
 
     const { notes } = useContext(NotesContext);
-
-    const open = useRef(null);
-    const onOpen = () => {
-        const div = open.current;
-        div.classList.add("is-active");
-    }
-
-    const onClose = () => {
-        const div = open.current;
-        div.classList.remove("is-active");
-    }
+    const [ isOpen, setIsOpen ] = useState(false);
 
     return (
         <>
-            <Button onClick={onOpen}>
+            <Button onClick={() => setIsOpen(prev => !prev)}>
                 <ion-icon name="menu-outline"></ion-icon>
             </Button>
-            <div className="modal" ref={open} 
-            onClick={onClose}>
-                <div class="modal-background"></div>
-                <div className="modal-content">
-                    <div className="box has-background-white">
-                        {notes.length === 0 ? <NoNotesDetected /> : 
-                        (<CreateNoteButton />, <NotesList />) }
-                    </div>
+            <Modal onClose={() => setIsOpen(prev => !prev)} open={isOpen}>
+                <Block>
+                    <Heading renderAs='h3'>Notes</Heading>
+                    <CreateNoteButton />
+                </Block>
+                <div className="box has-background-white">
+                    {notes.length === 0 ? <NoNotesDetected /> : 
+                    (<CreateNoteButton />, <NotesList />) }
                 </div>
-            </div>
+            </Modal>
         </>
     )
 }
