@@ -12,9 +12,9 @@ export default function Modal({ children, onClose, open }) {
             <div className="modal-background"></div>
             <div className="modal-content">
                 <div className="actions">
-                    <Button className="delete" 
+                    {onClose && <Button className="delete" 
                     onClick={onClose}
-                    aria-label="close"></Button>
+                    aria-label="close"></Button> }
                 </div>
                 {children}
             </div>

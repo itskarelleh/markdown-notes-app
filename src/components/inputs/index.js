@@ -1,44 +1,55 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { EditorContext, NotesContext } from "../../context";
 import { Block, Button, Heading } from 'react-bulma-components';
 import 'bulma-switch';
 import Modal from "../Modal";
 
-const EditNoteButton = ({ id }) => {
-    const [ isAutosave, setIsAutosave ] = useState(false);
+
+//The Edit Note Button will have two views: one where it shows only the autosave
+//switch when enabled, and one where the update button is visible along side the autosave switch
+// when the switch is disabled
+const EditNoteButton = () => {
+
     const { editNote, selected } = useContext(NotesContext);
     const { currentContent } = useContext(EditorContext);
-
-    const isDisabled = currentContent != selected.content ? false: true;
+    const [ isAutosave, setIsAutosave ] = useState(false)
+    //used to enable 
+    const isEdited = currentContent != selected.content ? false : true;
+    
     const ManualSave = () => (
-        <Button onClick={editNote} className="button is-success" disabled={isDisabled}>
+        <Button size="small" onClick={editNote} className="button is-success" disabled={isEdited}>
             <ion-icon name="checkmark-outline"></ion-icon>
         </Button>
     )
 
+    const handleChange = () =>{
+         setIsAutosave(!isAutosave);
+            console.log(isAutosave);
+        }
+
     const ToggleSave = () => (
         <div className="field">
-            <input id="autosave" type="checkbox" name="switchSmall" className="switch is-small" checked={isAutosave ? true : false} />
+            <input onChange={handleChange} id="autosave" type="checkbox" 
+            name="switchSmall" className="switch is-small" defaultChecked={isAutosave} checked={isAutosave} />
             <label for="switchSmall">Autosave</label>
         </div>
     )
 
     return (
-        <Block className="is-flex is-flex-direction-row">
+        <>
             <ToggleSave />
             {!isAutosave && <ManualSave />}
-        </Block>
+        </>
     )
 }
 
 const DeleteNoteButton = () => { 
     const { deleteNote } = useContext(NotesContext);
     const [ isOpen, setIsOpen ] = useState(false);
-    //useContext to bind the delete function to this button
 
     return (
         <>
-            <Button onClick={() => setIsOpen(prev => !prev)} 
+            <Button size="small" onClick={() => setIsOpen(prev => !prev)} 
             className="is-danger">
                 <ion-icon name="create-outline"></ion-icon>
             </Button>

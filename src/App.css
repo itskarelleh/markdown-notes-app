@@ -6,3 +6,20 @@
     height: 100vh;
     display: flex;
 }
+
+.modal-menu {
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    background: white;
+    top: 0;
+}
+
+.side-menu-btn {
+    position: static;
+    z-index: 999;
+}
+
+.editor {
+    padding-top: 5rem;
+}

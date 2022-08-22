@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import { NotesContext } from '../../context';
-import { CreateNoteButton } from './inputs';
+import { CreateNoteButton } from '../inputs';
 import { Block, Container, Heading } from 'react-bulma-components';
 
 const NoteSummary = ({ data }) => {
     
-    const { getNote } = useContext(NotesContext);
 
     return (
         <>
-            <Block onClick={() => getNote(data.id)} key={`note-${data.id}`}>
+            <Block key={`note-${data.id}`}>
                 <h1>{data.title}</h1>
                 <p>{data.created_at}</p>
             </Block>
@@ -36,4 +35,4 @@ const NotesList = () => {
     </>)
 }
 
-export { NotesList, NoNotesDetected }
+export { NotesList, NoNotesDetected, NoteSummary }

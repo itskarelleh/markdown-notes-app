@@ -45,7 +45,6 @@ function NotesProvider({ children }) {
     }
  
     function editNote(e) {
-        // setNotes(prev => prev.filter(note => note.id === id));
         setSelected(e.target.value);
 
         setNotes(notes.map(note => {
@@ -68,26 +67,29 @@ function NotesProvider({ children }) {
 }
 
 function EditorProvider({ children }) {
+
+    const { selected } = useContext(NotesContext);
     
-    // const [ selected, setSelected ] = useState(JSON.parse(localStorage.getItem('selected') || '{}'));
     const [ isAutosave, setIsAutosave ] = useState(false);
     const [ isTextView, setIsTextView ] = useState(false);
     const [ currentContent, setCurrentContent ] = useState("");
 
-    // useEffect(() => {
-    //     setSelected(JSON.parse(localStorage.getItem('selected')));
-    // }, []);
+    useEffect(() => {
+        setCurrentContent(selected.content);
+    }, [selected])
 
-    //  useEffect(() => {
-    //     localStorage.setItem('selected', JSON.stringify(selected));
-    // }, [selected]);
-    
+
+    function resetEditorSettings() {
+        setIsAutosave(false);
+        setIsTextView(false);
+    }
 
     function changeCurrentContent(e) {
         setCurrentContent(e.target.value);
     }
+
     function toggleAutosave() {
-        setIsAutosave(prev => !prev);
+        setIsAutosave(!isAutosave);
     }
 
     function toggleTextView() {
@@ -95,11 +97,12 @@ function EditorProvider({ children }) {
     }
 
     return (
-        <EditorContext.Provider value={{ isAutosave, isTextView, currentContent, toggleAutosave, toggleTextView, changeCurrentContent, setCurrentContent }}>
+        <EditorContext.Provider value={{ isAutosave, isTextView, currentContent, 
+        resetEditorSettings, toggleAutosave, toggleTextView, changeCurrentContent, setCurrentContent }}>
             {children}
         </EditorContext.Provider>
     )
 }
 
 
-export { NotesContext, EditorContext, NotesProvider, EditorProvider  }
+export { NotesContext, EditorContext, NotesProvider, EditorProvider }
