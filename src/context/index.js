@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 const NotesContext = React.createContext();
 const EditorContext = React.createContext();
+// const ThemeContext = React.createContext();
+// const UserContext = React.createContext();
 
 function NotesProvider({ children }) {
 
@@ -23,45 +25,77 @@ function NotesProvider({ children }) {
     }, [selected])
     
     function createNote() {
-        var content = "# Untitled \n empty.";
+        try {
+            var content = "# Untitled \n empty.";
         
-        var newNote = {
-            id: uuidv4(), 
-            title: content.split('\n')[0], 
-            content: content,
-            created_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})
+            var newNote = {
+                id: uuidv4(), 
+                title: content.split('\n')[0], 
+                content: content,
+                created_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})
+            }
+    
+            setNotes(prev => [...prev, newNote ]);
+            setSelected(newNote);
+        } catch(err) {
+            console.log({message: err});
         }
-
-        setNotes(prev => [...prev, newNote ]);
-        setSelected(newNote);
     }
 
     function getNote(id) {
-        var found = notes.find((note) => {
-            return note.id === id;
-        });
-
-        setSelected(found);
+        try {
+            console.log("getting note: " + id)
+            var found = notes.find((note) => {
+                return note.id === id;
+            });
+            console.log("found note: ");    
+            setSelected(found);
+        } catch(err) {
+            console.log(err);
+        }
+        
     }
  
-    function editNote(e) {
-        setSelected(e.target.value);
-
-        setNotes(notes.map(note => {
-            if(note.id === selected.id) {
-                return {...note, content: selected.content, title: selected.title.split('\n')[0] };
-            }
-            return note;
-        }),
+    function updateNote(content) {
+        
+            const updatedNote = selected;
+            updateNote.content = content;
+            //update selected object
+            setSelected(updatedNote);
+            //update notes array
+            setNotes(notes.map(note => {
+                if(note.id === selected.id) {
+                    return {...note, updatedNote};
+                }
+                return note;
+            }),
         );
     }
+    // function updateNote(e) {
+    //     setSelected(e.target.value);
+
+    //     setNotes(notes.map(note => {
+    //         if(note.id === selected.id) {
+    //             return {...note, content: selected.content, title: selected.title.split('\n')[0]};
+    //         }
+    //         return note;
+    //     }),
+    //     );
+    // }
     
     function deleteNote(id) {
         setNotes(prev => prev.filter(note => note.id !== id));
+        
+        if(notes.length >= 1 ) {
+            setSelected(notes[notes.length-1]);
+        }
+        else {
+            setSelected({}); 
+        }
     }
 
     return( 
-    <NotesContext.Provider value={{ notes, selected, getNote, createNote, editNote, deleteNote }}>
+    <NotesContext.Provider value={{ notes, selected, getNote, createNote, updateNote, deleteNote }}>
         {children}
     </NotesContext.Provider>)
 }
@@ -104,5 +138,8 @@ function EditorProvider({ children }) {
     )
 }
 
+
+// function ThemeProvider({ children }) {}
+// function UserProvider({ children }) {}
 
 export { NotesContext, EditorContext, NotesProvider, EditorProvider }

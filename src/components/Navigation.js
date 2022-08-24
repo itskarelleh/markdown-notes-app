@@ -13,9 +13,9 @@ export default function Navigation() {
     
     const SelectedNoteDisplay = () => (
         <Block>
-            {!selected || selected === undefined ? null : <Heading style={{ height: '100%' }} 
-                marginless alignItems="center" className="is-flex" size="6" renderAs="h6"  
-                dangerouslySetInnerHTML={{ __html: rawMarkup(selectedNote) }}></Heading> }
+            {Object.keys(selected).length >= 1 && <Heading style={{ height: '100%' }} 
+            marginless alignItems="center" className="is-flex" size="6" renderAs="h6">{selectedNote}</Heading> 
+            }
         </Block>
     );
 
@@ -25,7 +25,7 @@ export default function Navigation() {
             className="is-flex mx-5" style={{ width: '100%'}}>
             <Block display="flex" alignItems="center" style={{ height: '100%'}}>
                 <ToggleMenu />
-                <Navbar.Brand mx={5} flexDirection="column" className="is-flex" alignItems='start'>
+                <Navbar.Brand mx={5} flexDirection="column" className="is-flex nav-branding" alignItems='start'>
                     <Heading className="my-0" renderAs='h1'>Notes</Heading>
                     <Heading className="my-0" renderAs='h6' size="6">Markdown Editor</Heading>
                 </Navbar.Brand>

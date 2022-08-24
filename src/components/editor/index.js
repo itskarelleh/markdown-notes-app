@@ -4,20 +4,14 @@ import { NoNotesDetected } from '../notes';
 import { rawMarkup } from '../../utils';
 import { Box, Block, Button, Content, Container, Columns } from 'react-bulma-components';
 import { DeleteNoteButton, EditNoteButton } from '../inputs';
-import { isCursorAtStart } from '@testing-library/user-event/dist/utils';
 
-// const { isAutosave, toggleAutosave
 const EditorToolbar = () => {
-    const { isTextView, toggleTextView } = useContext(EditorContext);
 
     return (
-            <Block display='flex' justifyContent='space-between' alignItems='center' style={{ width: '20%',height: '100%' }}>
-                <EditNoteButton /> <DeleteNoteButton />
-                <Button size="small" onClick={toggleTextView}>{ isTextView ? "Text" : "HTML"}</Button>
-            </Block>
-        // </Container>
+        <Block display='flex' justifyContent='space-between' alignItems='center' style={{ width: '20%', height: '100%' }}>
+            <EditNoteButton /> <DeleteNoteButton />
+        </Block>
     )
-    
 }
 
 const MarkDownEditor = () => {
@@ -26,11 +20,11 @@ const MarkDownEditor = () => {
 
     return (
         <>
-            <textarea style={{ height: '100vh' }} 
-            className="textarea has-fixed-size is-fullheight"
-            value={currentContent} 
-            onInput={changeCurrentContent}>
-            </textarea>
+        <textarea style={{ height: '100vh' }} 
+        className="textarea has-fixed-size is-fullheight"
+        value={currentContent} 
+        onInput={changeCurrentContent}>
+        </textarea>
         </>
     )
 }
@@ -38,7 +32,7 @@ const MarkDownEditor = () => {
 const HtmlAndTextView = () => {
 
     const { isTextView, currentContent } = useContext(EditorContext);
-
+    
     const HtmlView = () => (
         <Content>
             <div dangerouslySetInnerHTML={{ __html: rawMarkup(currentContent) }}></div>
@@ -61,10 +55,10 @@ const HtmlAndTextView = () => {
 export default function Editor() {
 
     const { notes, selected } = useContext(NotesContext);
-    const { setCurrentContent } = useContext(EditorContext);
+    const { isTextView, toggleTextView, setCurrentContent } = useContext(EditorContext);
+
     const [ prev, setPrev ] = useState(selected);
     const [ isMobile, setIsMobile ] = useState(false);
-    const [ currentColumn, setCurrentColumn ] = useState('editor');
     const [ editorIsShown, setEditorIsShown ] = useState(true);
     const [ textHtmlIsShown, setTextHtmlIsShown ] = useState(false);
 
@@ -81,7 +75,7 @@ export default function Editor() {
         } else setIsMobile(false);
     }, []);
 
-        //used for toggling the editor and the html/textview columns 
+    //used for toggling the editor and the html/textview columns 
     //when the user is viewing the app on a mobile or smaller screen
     const ToggleEditorView = () => {
 
@@ -89,7 +83,7 @@ export default function Editor() {
             setIsMobile(true);
 
             return (
-                <Block display="flex" justifyContent="end" style={{ width: "100%"}}>
+                <>
                     Viewing { editorIsShown ? 'Text/HTML' : 'Markdown'}
                     <Button onClick={() => {
                         setEditorIsShown(!editorIsShown);
@@ -97,14 +91,12 @@ export default function Editor() {
                     }}>
                         {editorIsShown ? <ion-icon name="text-outline"></ion-icon> : <ion-icon name="logo-markdown"></ion-icon> }
                     </Button>
-                </Block>
+                </>
             )
         } else {
             setIsMobile(false);
         }
-
         return null;
-        
     }
 
     if(notes.length === 0) {
@@ -113,7 +105,9 @@ export default function Editor() {
 
     return (
         <Container>
-            <ToggleEditorView />            
+            <Block display="flex" justifyContent="end" style={{ width: "100%"}}>
+                {isMobile ? <ToggleEditorView /> : null  }
+            </Block>
             <Columns tablet>
                 <Columns.Column className={isMobile &&  !editorIsShown ? 'is-hidden-mobile' : ''}>
                     <Box backgroundColor='white'>
@@ -121,7 +115,10 @@ export default function Editor() {
                     </Box>
                 </Columns.Column>
                 <Columns.Column className={isMobile &&  !textHtmlIsShown ? 'is-hidden-mobile' : ''}>
-                    <Box backgroundColor='white'>
+                    <Box backgroundColor='white' display='flex' flexDirection='column'>
+                        <Button className="is-align-self-flex-end"  
+                        title={`Click to see in ${isTextView ? "Text" : "HTML"}`} 
+                        size="small" onClick={toggleTextView}>{ isTextView ? "Text" : "HTML"}</Button>
                         <HtmlAndTextView /> 
                     </Box>
                 </Columns.Column>

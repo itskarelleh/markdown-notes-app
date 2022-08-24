@@ -1,13 +1,19 @@
 .App {
-    height: 100vh;
+    height: 100%;
 }
 
 #no-notes {
     height: 100vh;
     display: flex;
 }
+.nav-branding {
+    position: absolute;
+    z-index: 999;
+    left: 4rem;
+}
 
 .modal-menu {
+    width: 18rem;
     height: 100vh;
     position: fixed;
     left: 0;

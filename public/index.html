@@ -8,12 +8,12 @@
     <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>Notes | Write Notes with Markdown</title>
+    <title>Notes - Markdown Editor</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-
+    <!--service worker and navigator for PWA-->
     <script>
       if('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -25,6 +25,7 @@
       }
     </script>
     <script type="text/javascript" src="src/purify.js"></script>
+    <script src="/node_modules/bulma-extensions/bulma-switch/dist/bulma-switch.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   </body>
