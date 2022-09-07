@@ -1,7 +1,7 @@
-#Notes App
+# Notes App
 A markdown editor for more customized notes
 
-#Description
+# Description
 With the notes app, users can add, edit and delete notes from their notebook.
 
 # Getting Started with Create React App

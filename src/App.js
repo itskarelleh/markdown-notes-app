@@ -1,9 +1,9 @@
 import React from 'react';
 import "./App.css";
 import 'bulma/css/bulma.min.css';
-import Navigation from './components/Navigation';
+import Navigation from './components/nav/Navigation';
 import { EditorProvider, NotesProvider } from './context';
-import { Editor } from './components/editor';
+import Editor from './components/editor';
 import { Container } from 'react-bulma-components';
 
 function App() {
@@ -18,9 +18,6 @@ function App() {
           </div>
         </EditorProvider>
       </Container>
-      {/* <Container marginless max className="App"> */}
-      {/* </Container> */}
-   
     </NotesProvider>
     );
 }

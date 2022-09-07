@@ -1,19 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import usePrevious from '../hooks/usePrevious';
+import * as bulmaToast from 'bulma-toast';
 
 const NotesContext = React.createContext();
 const EditorContext = React.createContext();
-// const ThemeContext = React.createContext();
-// const UserContext = React.createContext();
+
+var dateFormatForNote = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
 
 function NotesProvider({ children }) {
 
     const [ notes, setNotes ] = useState(JSON.parse(localStorage.getItem('notes') || '[]'));
     const [ selected, setSelected ] = useState(JSON.parse(localStorage.getItem('selected') || '{}'));
-
+    const [ currentContent, setCurrentContent ] = useState("");
+    const prevSelected = usePrevious(selected);
+    
     useEffect(() => {
         setNotes(JSON.parse(localStorage.getItem('notes')));
         setSelected(JSON.parse(localStorage.getItem('selected')));
+        setCurrentContent(selected.content);
     }, []);
 
     useEffect(() => {
@@ -23,103 +28,150 @@ function NotesProvider({ children }) {
     useEffect(() => {
         localStorage.setItem('selected', JSON.stringify(selected));
     }, [selected])
-    
+
+
+    //used to handle change for the content key:value of the selected state
+    //saves changes automatically
+    function handleChangeAutosave(e, isAutosave) {
+        var c = e.target.value;
+
+        if(isAutosave) {
+            setSelected(prevState => ({ ...prevState, content: c, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
+            setNotes(notes.map((note) => {
+                if(note.id === selected.id) return {...note, content: c};
+
+                return note;
+            }));
+            
+        } else {
+            setCurrentContent(c);
+        }
+    } 
+
     function createNote() {
+        var newNote = {
+            id: uuidv4(), 
+            title: "Untitled",
+            content: "# Untitled \n empty.",
+            created_at: dateFormatForNote
+        }
+
         try {
-            var content = "# Untitled \n empty.";
-        
-            var newNote = {
-                id: uuidv4(), 
-                title: content.split('\n')[0], 
-                content: content,
-                created_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})
-            }
-    
             setNotes(prev => [...prev, newNote ]);
             setSelected(newNote);
+            setCurrentContent(selected.content);
         } catch(err) {
             console.log({message: err});
+            bulmaToast.toast({ message: err, type: 'is-danger'});
         }
     }
 
+    //read
     function getNote(id) {
         try {
-            console.log("getting note: " + id)
-            var found = notes.find((note) => {
+            setSelected(notes.find((note) => {
                 return note.id === id;
-            });
-            console.log("found note: ");    
-            setSelected(found);
+            }));
+            setCurrentContent(selected.content);
         } catch(err) {
-            console.log(err);
+            bulmaToast({ message: err, type: 'is-danger'});
         }
-        
+    }
+
+    //update
+    function updateNoteTitle(title) {
+       
+       let updatedNotesArr;
+       
+        try {
+        updatedNotesArr = notes.map(note => {
+            if(note.id === selected.id) {
+                return {...note, title: title}
+            }
+
+            return note;
+        })
+
+       } catch(err) {
+            bulmaToast.toast({ message: err, type: 'is-danger'})
+       } finally {
+            setNotes(updatedNotesArr)
+            setSelected(prev => ({...prev, title: title}));
+            bulmaToast.toast({ message: "Successfully updated title", type: 'is-success'})
+       }
     }
  
-    function updateNote(content) {
-        
-            const updatedNote = selected;
-            updateNote.content = content;
-            //update selected object
-            setSelected(updatedNote);
-            //update notes array
-            setNotes(notes.map(note => {
-                if(note.id === selected.id) {
-                    return {...note, updatedNote};
-                }
-                return note;
-            }),
-        );
-    }
-    // function updateNote(e) {
-    //     setSelected(e.target.value);
+    //used for the manual save button
+    function updateNoteContent() {
+        let updatedNotes = notes.map((note) => {
+            if(note.id === selected.id) {
+                return { ...note, content: currentContent };
+            }
+            return note;
+        });
 
-    //     setNotes(notes.map(note => {
-    //         if(note.id === selected.id) {
-    //             return {...note, content: selected.content, title: selected.title.split('\n')[0]};
-    //         }
-    //         return note;
-    //     }),
-    //     );
-    // }
+        try {
+            setSelected(prevState => ({ ...prevState, content: currentContent, updated_at: dateFormatForNote }))
+            setNotes(updatedNotes)
+           } catch(err) {
+                bulmaToast.toast({ message: err, type: 'is-danger'})
+           } finally {
+            bulmaToast.toast({ message: "Successfully updated Content", type: 'is-success'})
+           }
+    }
     
+    //delete
     function deleteNote(id) {
-        setNotes(prev => prev.filter(note => note.id !== id));
-        
-        if(notes.length >= 1 ) {
-            setSelected(notes[notes.length-1]);
-        }
-        else {
-            setSelected({}); 
+        try {
+            setNotes((curr) => {
+                if(notes.length === 1) {return [];}
+                else {
+                    curr.filter(note => {return note.id !== id});
+                }
+            });
+
+        } catch(err) {
+            bulmaToast.toast({ message: err, type: 'is-danger'})
+        } finally {
+            if(notes.length === 0) {
+                setSelected({});
+            }
+            else {
+                setSelected(notes[notes.length-1]);
+            }
+            bulmaToast.toast({ message: "Note deleted", type: 'is-success'})
         }
     }
 
     return( 
-    <NotesContext.Provider value={{ notes, selected, getNote, createNote, updateNote, deleteNote }}>
+    <NotesContext.Provider value={{ notes, selected, prevSelected, currentContent, handleChangeAutosave, getNote, createNote, updateNoteContent, updateNoteTitle, deleteNote }}>
         {children}
     </NotesContext.Provider>)
 }
 
 function EditorProvider({ children }) {
 
-    const { selected } = useContext(NotesContext);
-    
-    const [ isAutosave, setIsAutosave ] = useState(false);
+    const [ isAutosave, setIsAutosave ] = useState(JSON.parse(localStorage.getItem('isAutosave') || 'false'));
     const [ isTextView, setIsTextView ] = useState(false);
-    const [ currentContent, setCurrentContent ] = useState("");
+    const [ isMobile, setIsMobile ] = useState(false);
+    const [ toggleColumns, setToggleColums ] = useState(false);
 
     useEffect(() => {
-        setCurrentContent(selected.content);
-    }, [selected])
+        setIsAutosave(JSON.parse(localStorage.getItem('isAutosave')));
+    }, [])
 
+    useEffect(() => {
+        localStorage.setItem('isAutosave', JSON.stringify(isAutosave));
+    }, [isAutosave]);
 
-    function resetEditorSettings() {
-        setIsAutosave(false);
-        setIsTextView(false);
+    useEffect(() => setIsMobile(prev => !prev));
+
+    function toggleColumnsForMobile() {
+        setToggleColums(prev => !prev);
     }
 
-    function changeCurrentContent(e) {
-        setCurrentContent(e.target.value);
+    function toggleMobile() {
+        setIsMobile(prev => !prev);
     }
 
     function toggleAutosave() {
@@ -131,15 +183,12 @@ function EditorProvider({ children }) {
     }
 
     return (
-        <EditorContext.Provider value={{ isAutosave, isTextView, currentContent, 
-        resetEditorSettings, toggleAutosave, toggleTextView, changeCurrentContent, setCurrentContent }}>
+        <EditorContext.Provider value={{ isAutosave, isTextView,  isMobile, toggleColumns,
+        toggleAutosave, toggleTextView, toggleMobile, toggleColumnsForMobile }}>
             {children}
         </EditorContext.Provider>
     )
 }
 
-
-// function ThemeProvider({ children }) {}
-// function UserProvider({ children }) {}
 
 export { NotesContext, EditorContext, NotesProvider, EditorProvider }

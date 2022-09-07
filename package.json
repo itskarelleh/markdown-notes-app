@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "bulma": "^0.9.4",
     "bulma-switch": "^2.0.4",
+    "bulma-toast": "^2.4.1",
     "dompurify": "^2.3.10",
     "jsdom": "^20.0.0",
     "marked": "^4.0.18",
@@ -42,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@creativebulma/bulma-collapsible": "^1.0.4"
   }
 }
