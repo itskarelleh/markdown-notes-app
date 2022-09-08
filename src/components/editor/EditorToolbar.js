@@ -1,13 +1,11 @@
 import React, { useContext, useState } from "react";
-import { EditorContext } from "../../context";
+import { EditorContext, NotesContext } from "../../context";
 import { Block, Container } from "react-bulma-components";
 import { DeleteNoteButton, EditNoteButton, TitleInputToggle } from "../inputs";
-import Collapsible from "../bulma-components/Collapsible";
 
 export default function EditorToolbar() {
     
-    // const { isMobile } = useContext(EditorContext);
-
+    const { selected } = useContext(NotesContext);
 
     const DesktopToolbar = () => (
         <>
@@ -19,15 +17,15 @@ export default function EditorToolbar() {
         </>
     )
 
-    const CollapsibleToolbar = () => (
-        <Collapsible>
-            <DesktopToolbar />
-        </Collapsible>
-    );
+    if(Object.keys(selected).length >= 1) {
+        return (
+            <Container className="is-flex" flexDirection="row" justifyContent="flex-end" style={{ width: "75%"}}>
+                <DesktopToolbar />
+            </Container>
+        )
+    }
 
     return (
-        <Container className="is-flex" flexDirection="row" justifyContent="flex-end" style={{ width: "75%"}}>
-            <DesktopToolbar />
-        </Container>
+        <></>
     )
 }

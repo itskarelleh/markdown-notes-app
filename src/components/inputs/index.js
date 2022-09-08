@@ -115,6 +115,8 @@ const TitleInput = ({ setIsEditing }) => {
     
     useEffect(() => {
         setValue(selected.title);
+
+        if(Object.keys(selected).length === 0) setValue("");
     }, [selected])
 
     return (
@@ -138,7 +140,8 @@ const TitleInputToggle = () => {
     const [ isEditing, setIsEditing ] = useState(false);
     const { selected } = useContext(NotesContext);
     
-    if(Object.keys(selected).length >= 1 ){
+    
+    if(Object.keys(selected).length >= 1){
         return (
         <>
             {isEditing ? <TitleInput setIsEditing={setIsEditing} /> : <TitleDisplay setIsEditing={setIsEditing} />}
@@ -146,7 +149,10 @@ const TitleInputToggle = () => {
         )
     }
 
-    return null;
+    if(Object.keys(selected).length === 0) {
+        return null;
+    }
+
 }
 
 const MarkdownInput = () => {
