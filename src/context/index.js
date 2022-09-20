@@ -134,7 +134,9 @@ function NotesProvider({ children }) {
             bulmaToast.toast({ message: err, type: 'is-danger'})
         } finally {
             if(notes.length === 0) {
-                setSelected({});
+                setSelected(() => {
+                    return {};
+                });
             }
             else {
                 setSelected(notes[notes.length-1]);
