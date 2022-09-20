@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import usePrevious from '../hooks/usePrevious';
 import * as bulmaToast from 'bulma-toast';
+import { dateFormatForNote, starterContent } from '../utils';
 
 const NotesContext = React.createContext();
 const EditorContext = React.createContext();
 
-var dateFormatForNote = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
-
 function NotesProvider({ children }) {
-
     const [ notes, setNotes ] = useState(JSON.parse(localStorage.getItem('notes') || '[]'));
     const [ selected, setSelected ] = useState(JSON.parse(localStorage.getItem('selected') || '{}'));
-    const [ currentContent, setCurrentContent ] = useState("");
-    const prevSelected = usePrevious(selected);
-    
+
     useEffect(() => {
         setNotes(JSON.parse(localStorage.getItem('notes')));
         setSelected(JSON.parse(localStorage.getItem('selected')));
-        setCurrentContent(selected.content);
     }, []);
 
     useEffect(() => {
@@ -27,25 +21,17 @@ function NotesProvider({ children }) {
 
     useEffect(() => {
         localStorage.setItem('selected', JSON.stringify(selected));
-    }, [selected])
+    }, [selected]);
 
-
-    //used to handle change for the content key:value of the selected state
-    //saves changes automatically
-    function handleChangeAutosave(e, isAutosave) {
+    function handleChange(e) {
         var c = e.target.value;
 
-        if(isAutosave) {
-            setSelected(prevState => ({ ...prevState, content: c, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
-            setNotes(notes.map((note) => {
-                if(note.id === selected.id) return {...note, content: c};
+        setSelected(prevState => ({ ...prevState, content: c, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
+        setNotes(notes.map((note) => {
+            if(note.id === selected.id) return {...note, content: c};
 
-                return note;
-            }));
-            
-        } else {
-            setCurrentContent(c);
-        }
+            return note;
+        }));    
     } 
 
     function createNote() {
@@ -59,7 +45,6 @@ function NotesProvider({ children }) {
         try {
             setNotes(prev => [...prev, newNote ]);
             setSelected(newNote);
-            setCurrentContent(selected.content);
         } catch(err) {
             console.log({message: err});
             bulmaToast.toast({ message: err, type: 'is-danger'});
@@ -72,7 +57,6 @@ function NotesProvider({ children }) {
             setSelected(notes.find((note) => {
                 return note.id === id;
             }));
-            setCurrentContent(selected.content);
         } catch(err) {
             bulmaToast({ message: err, type: 'is-danger'});
         }
@@ -100,25 +84,7 @@ function NotesProvider({ children }) {
             bulmaToast.toast({ message: "Successfully updated title", type: 'is-success'})
        }
     }
- 
-    //used for the manual save button
-    function updateNoteContent() {
-        let updatedNotes = notes.map((note) => {
-            if(note.id === selected.id) {
-                return { ...note, content: currentContent };
-            }
-            return note;
-        });
 
-        try {
-            setSelected(prevState => ({ ...prevState, content: currentContent, updated_at: dateFormatForNote }))
-            setNotes(updatedNotes)
-           } catch(err) {
-                bulmaToast.toast({ message: err, type: 'is-danger'})
-           } finally {
-            bulmaToast.toast({ message: "Successfully updated Content", type: 'is-success'})
-           }
-    }
     
     //delete
     function deleteNote(id) {
@@ -145,48 +111,44 @@ function NotesProvider({ children }) {
         }
     }
 
-    return( 
-    <NotesContext.Provider value={{ notes, selected, prevSelected, currentContent, handleChangeAutosave, getNote, createNote, updateNoteContent, updateNoteTitle, deleteNote }}>
-        {children}
-    </NotesContext.Provider>)
+    
+
+    return ( 
+        <NotesContext.Provider value={{ notes, selected,  handleChange, getNote, 
+        createNote, updateNoteTitle, deleteNote }}>
+            {children}
+        </NotesContext.Provider>
+    )
 }
 
 function EditorProvider({ children }) {
 
-    const [ isAutosave, setIsAutosave ] = useState(JSON.parse(localStorage.getItem('isAutosave') || 'false'));
     const [ isTextView, setIsTextView ] = useState(false);
     const [ isMobile, setIsMobile ] = useState(false);
     const [ toggleColumns, setToggleColums ] = useState(false);
 
-    useEffect(() => {
-        setIsAutosave(JSON.parse(localStorage.getItem('isAutosave')));
-    }, [])
 
-    useEffect(() => {
-        localStorage.setItem('isAutosave', JSON.stringify(isAutosave));
-    }, [isAutosave]);
-
-    useEffect(() => setIsMobile(prev => !prev));
-
+    
     function toggleColumnsForMobile() {
         setToggleColums(prev => !prev);
+        console.log(toggleColumns);
     }
 
     function toggleMobile() {
         setIsMobile(prev => !prev);
     }
 
-    function toggleAutosave() {
-        setIsAutosave(!isAutosave);
-    }
-
     function toggleTextView() {
         setIsTextView(prev => !prev);
     }
 
+    // useEffect(() => {
+    //     if(window.innerWidth < 768) toggleMobile();
+    // }, []);
+
     return (
-        <EditorContext.Provider value={{ isAutosave, isTextView,  isMobile, toggleColumns,
-        toggleAutosave, toggleTextView, toggleMobile, toggleColumnsForMobile }}>
+        <EditorContext.Provider value={{ isTextView,  isMobile, toggleColumns, 
+        toggleTextView, toggleMobile, toggleColumnsForMobile }}>
             {children}
         </EditorContext.Provider>
     )

@@ -6,17 +6,13 @@ import { Block, Content } from 'react-bulma-components'
 
 export default function HtmlAndTextView() {
 
-    const { selected, currentContent } = useContext(NotesContext);
-    const { isTextView, isAutosave } = useContext(EditorContext)
-    const [ markup, setMarkup] = useState(null);
+    const { selected } = useContext(NotesContext);
+    const { isTextView, currentDocument } = useContext(EditorContext);
+    const [ markup, setMarkup ] = useState(null);
 
     useEffect(() => {
-        if(isAutosave) {
-            setMarkup(rawMarkup(selected.content));
-        } else {
-            setMarkup(rawMarkup(currentContent));
-        }
-    },[markup, selected, isAutosave])
+        setMarkup(rawMarkup(selected.content));
+    });
 
     const HtmlView = () => (
         <Content>
@@ -36,7 +32,7 @@ export default function HtmlAndTextView() {
     
     return (
         <>
-        { isTextView ?  <TextView /> : <HtmlView />}
+        { isTextView ?  <TextView /> : <HtmlView /> }
         </>
     )
 }
