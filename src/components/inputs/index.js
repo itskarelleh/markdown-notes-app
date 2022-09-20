@@ -58,4 +58,88 @@ const HtmlAndTextButton = () => {
     )
 }
 
+<<<<<<< HEAD
 export { CreateNoteButton, DeleteNoteButton, HtmlAndTextButton }
+=======
+const TitleDisplay = ({ setIsEditing }) => {
+
+    const { selected } = useContext(NotesContext);
+
+    const titleAndDate = `${selected.title} - ${selected.created_at}`;
+
+    return (
+        <Block onClick={() => setIsEditing(true)}>
+            {Object.keys(selected).length >= 1 && 
+            <Heading style={{ height: "100%" }} marginless 
+            alignItems="center" className="is-flex" size="6" renderAs="h6">
+                {titleAndDate}
+            </Heading> 
+            }
+        </Block>
+    )
+}
+
+const TitleInput = ({ setIsEditing }) => {
+
+    const { selected, updateNoteTitle } = useContext(NotesContext);
+    const [ value, setValue ] = useState("");
+    
+    useEffect(() => {
+        setValue(selected.title);
+
+        if(Object.keys(selected).length === 0) setValue("");
+    }, [selected])
+
+    return (
+        <Block>
+            <Form.Field>
+                <Form.Control>
+                    <Form.Input type="text" value={value}
+                    onClick={setIsEditing(prev => !prev)}
+                    onChange={e => setValue(e.target.value)}></Form.Input>
+                    <Button size="small" onClick={() => {
+                        updateNoteTitle(value)
+                    }}>Save</Button>
+                </Form.Control>
+            </Form.Field>
+        </Block>
+    )
+}
+
+const TitleInputToggle = () => {
+    
+    const [ isEditing, setIsEditing ] = useState(false);
+    const { selected } = useContext(NotesContext);
+    
+    
+    if(Object.keys(selected).length >= 1){
+        return (
+        <>
+            {isEditing ? <TitleInput setIsEditing={setIsEditing} /> : <TitleDisplay setIsEditing={setIsEditing} />}
+        </>
+        )
+    }
+
+    if(Object.keys(selected).length === 0) {
+        return null;
+    }
+
+}
+
+const MarkdownInput = () => {
+    const { selected, currentContent, handleChangeAutosave } = useContext(NotesContext);
+    const { isAutosave } = useContext(EditorContext);
+    
+    return (
+        <>
+        <textarea style={{ height: "100vh" }} 
+        className="textarea has-fixed-size is-fullheight"
+        value={isAutosave ? selected.content : currentContent} 
+        onChange={e => handleChangeAutosave(e, isAutosave)}>
+        </textarea>
+        </>
+    )
+}
+
+export { CreateNoteButton, DeleteNoteButton, EditNoteButton, TitleInputToggle, MarkdownInput, HtmlAndTextButton }
+>>>>>>> 4b2f35f27740661133f4374b61b35a7dbbeee252

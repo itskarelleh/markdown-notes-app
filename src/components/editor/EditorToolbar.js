@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useContext, useState, useEffect } from "react";
 import { EditorContext, NotesContext } from "../../context";
 import { Block, Container, Button, Heading, Form } from "react-bulma-components";
@@ -66,12 +67,22 @@ const TitleInputToggle = () => {
     }
 
 }
+=======
+import React, { useContext, useState } from "react";
+import { EditorContext, NotesContext } from "../../context";
+import { Block, Container } from "react-bulma-components";
+import { DeleteNoteButton, EditNoteButton, TitleInputToggle } from "../inputs";
+>>>>>>> 4b2f35f27740661133f4374b61b35a7dbbeee252
 
 export default function EditorToolbar() {
     
     const { selected } = useContext(NotesContext);
 
+<<<<<<< HEAD
     const Toolbar = () => (
+=======
+    const DesktopToolbar = () => (
+>>>>>>> 4b2f35f27740661133f4374b61b35a7dbbeee252
         <>
         <TitleInputToggle />
         <Block display="flex" justifyContent="space-between" alignItems="center" 
@@ -79,7 +90,19 @@ export default function EditorToolbar() {
            <DeleteNoteButton />
         </Block>
         </>
+<<<<<<< HEAD
     );
+=======
+    )
+
+    if(Object.keys(selected).length >= 1) {
+        return (
+            <Container className="is-flex" flexDirection="row" justifyContent="flex-end" style={{ width: "75%"}}>
+                <DesktopToolbar />
+            </Container>
+        )
+    }
+>>>>>>> 4b2f35f27740661133f4374b61b35a7dbbeee252
 
     if(Object.keys(selected).length >= 1) {
         return (
