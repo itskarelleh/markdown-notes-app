@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ToggleMenu from './ToggleMenu';
-import { Heading, Navbar, Block, Columns } from 'react-bulma-components';
-import EditorToolbar from '../editor/EditorToolbar';
-import { EditorContext } from '../../context';
+import { Heading, Navbar, Block } from 'react-bulma-components';
 
 export default function Navigation() {
     
@@ -17,9 +15,6 @@ export default function Navigation() {
                     <Heading className="my-0 is-size-7-mobile" renderAs='h6' size="6">Markdown Editor</Heading>
                 </Navbar.Brand>
             </Block>
-            <div className="navbar-end" style={{ width: '40%' }}>
-                <EditorToolbar />
-            </div>
             </Navbar.Container>
         </Navbar>
     )

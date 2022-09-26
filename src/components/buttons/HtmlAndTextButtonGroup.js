@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { EditorContext } from "../../context";
-import Button from 'react-bulma-components';
+import React, { useContext } from 'react';
+import { EditorContext } from '../../context';
+import { Button } from 'react-bulma-components';
 
-function HtmlTextToggleButtons() {
-    
+const HtmlAndTextButton = () => {
+
     const { isTextView, toggleTextView } = useContext(EditorContext);
 
     return (
@@ -15,7 +15,8 @@ function HtmlTextToggleButtons() {
             title={`Click to see in HTML`} 
             size="small" onClick={toggleTextView}>HTML</Button>
         </div>
+        
     )
 }
 
-export default HtmlTextToggleButtons;
+export default HtmlAndTextButton;

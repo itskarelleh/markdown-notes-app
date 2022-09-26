@@ -6,6 +6,18 @@
     height: 75vh;
     display: flex;
 }
+
+.note-summary-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height:56px;
+    margin-bottom: 15px;
+}
+
 .nav-branding {
     position: absolute;
     z-index: 999;
@@ -27,5 +39,26 @@
 }
 
 .editor {
-    padding-top: 5rem;
+    padding-top: 2rem;
+}
+
+#content {
+    height: 100%;
+    overflow: scroll;
+}
+
+.textarea-wrapper {
+    width: 100%;
+}
+
+.markdown-input{
+    height: 90%;
+    border: none;
+    width: 100%;
+    resize: none;
+    box-shadow: none;
+}
+
+.textarea-spacing {
+    padding: 0px 15px;
 }

@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Button } from 'react-bulma-components';
+import { NotesContext } from '../../context';
+import TitleField from './TitleField';
 
-function MarkdownInput({ value, onChange }) {
+function MarkdownInput() {
     
+    const { selected, handleContentChange } = useContext(NotesContext);
+
     return (
-        <>
-        <textarea style={{ height: "100vh" }} 
-        className="textarea has-fixed-size is-fullheight"
-        value={value} 
-        onChange={onChange}>
+        <div className="markdown-input">
+            <TitleField />
+        <textarea className="markdown-input textarea-spacing"
+        placeholder={selected.content === "" && "Start typing..."}
+        value={selected.content}
+        onChange={handleContentChange}>
         </textarea>
-        </>
+        </div>
     )
 }
 

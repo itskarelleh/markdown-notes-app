@@ -1,57 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NotesContext, EditorContext } from "../../context";
 import { NoNotesDetected } from "../notes";
-import { Box, Block, Button, Container, Columns } from "react-bulma-components";
-import { HtmlAndTextButton } from "../inputs";
-import HtmlAndTextView from "./HtmlAndTextView";
+import { Box } from "react-bulma-components";
 import MarkdownInput from "./MarkdownInput";
-
-const ToggleColumns = () => {
-
-    const { toggleColumnsForMobile, toggleColumns } = useContext(EditorContext);
-
-    return (
-        <Block className="hidden-on-desktop buttons" display="flex" justifyContent="end" style={{ width: "100%" }}>
-            <Button className={`${toggleColumns ? `is-dark` : `is-light`} d-sm-none d-block`} title="View Markdown"
-            onClick={toggleColumnsForMobile}>
-                <ion-icon name="logo-markdown"></ion-icon>
-            </Button> 
-            <Button className={`${!toggleColumns ? `is-dark` : `is-light`} d-sm-none d-block`}
-            title="View Content" onClick={toggleColumnsForMobile}>
-                <ion-icon name="text-outline"></ion-icon>
-            </Button> 
-        </Block>
-    )
-}
+import HtmlOutput from "./HtmlOutput";
+import MarkdownOutput from "./MarkdownOutput";
+import DeleteNoteButton from "../buttons/DeleteNoteButton";
+import EditNoteButton from "../buttons/EditNoteButton";
+import EditorToolbar from "./EditorToolbar";
 
 function Editor() {
-    const { notes, selected, handleChange } = useContext(NotesContext);
-    const {toggleColumns, isMobile, toggleMobile } = useContext(EditorContext);
+    
+    const { notes } = useContext(NotesContext);
+    const { isEditing, toggleEditing } = useContext(EditorContext);
+
 
     if(notes.length === 0 || notes === undefined) {
         return <NoNotesDetected />;
     }
 
     return (
-        <Container>
-            <ToggleColumns />
-            <Columns tablet>
-                <Columns.Column className={!toggleColumns ? "is-hidden-mobile" : ""}>
-                    <Box backgroundColor="white">
-                        <MarkdownInput value={selected.content} onChange={e => handleChange(e)} />          
-                    </Box>
-                </Columns.Column>
-                <Columns.Column className={toggleColumns ? "is-hidden-mobile" : ""}>
-                    <Box backgroundColor="white" display="flex" flexDirection="column">
-                        <HtmlAndTextButton />
-                        <HtmlAndTextView /> 
-                    </Box>
-                </Columns.Column>
-            </Columns>
-        </Container>
+        <div className="m-0 p-4 has-background-light" 
+        backgroundColor="light"
+        style={{ height: '100%', width: '100%' }}>
+            <Box backgroundColor="white" mx="auto" my="3"
+            style={{ width: '50%', height: '95%' }}>
+                <EditorToolbar />
+                {isEditing ? <MarkdownInput /> : <MarkdownOutput />}
+            </Box>  
+        </div>
     )
 };
 
-
 export default Editor;
- 

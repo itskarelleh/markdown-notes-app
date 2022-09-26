@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import * as bulmaToast from 'bulma-toast';
-import { dateFormatForNote, starterContent } from '../utils';
+import { dateFormatForNote } from '../utils';
 
 const NotesContext = React.createContext();
 const EditorContext = React.createContext();
@@ -23,13 +23,22 @@ function NotesProvider({ children }) {
         localStorage.setItem('selected', JSON.stringify(selected));
     }, [selected]);
 
-    function handleChange(e) {
+    function handleContentChange(e) {
         var c = e.target.value;
 
         setSelected(prevState => ({ ...prevState, content: c, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
         setNotes(notes.map((note) => {
             if(note.id === selected.id) return {...note, content: c};
 
+            return note;
+        }));    
+    } 
+    function handleTitleChange(e) {
+        var t = e.target.value;
+
+        setSelected(prevState => ({ ...prevState, title: t, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
+        setNotes(notes.map((note) => {
+            if(note.id === selected.id) return {...note, title: t};
             return note;
         }));    
     } 
@@ -61,30 +70,6 @@ function NotesProvider({ children }) {
             bulmaToast({ message: err, type: 'is-danger'});
         }
     }
-
-    //update
-    function updateNoteTitle(title) {
-       
-       let updatedNotesArr;
-       
-        try {
-        updatedNotesArr = notes.map(note => {
-            if(note.id === selected.id) {
-                return {...note, title: title}
-            }
-
-            return note;
-        })
-
-       } catch(err) {
-            bulmaToast.toast({ message: err, type: 'is-danger'})
-       } finally {
-            setNotes(updatedNotesArr)
-            setSelected(prev => ({...prev, title: title}));
-            bulmaToast.toast({ message: "Successfully updated title", type: 'is-success'})
-       }
-    }
-
     
     //delete
     function deleteNote(id) {
@@ -96,9 +81,6 @@ function NotesProvider({ children }) {
                 }
             });
 
-        } catch(err) {
-            bulmaToast.toast({ message: err, type: 'is-danger'})
-        } finally {
             if(notes.length === 0) {
                 setSelected(() => {
                     return {};
@@ -107,6 +89,10 @@ function NotesProvider({ children }) {
             else {
                 setSelected(notes[notes.length-1]);
             }
+        } catch(err) {
+            bulmaToast.toast({ message: err, type: 'is-danger'})
+        } finally {
+           
             bulmaToast.toast({ message: "Note deleted", type: 'is-success'})
         }
     }
@@ -114,8 +100,8 @@ function NotesProvider({ children }) {
     
 
     return ( 
-        <NotesContext.Provider value={{ notes, selected,  handleChange, getNote, 
-        createNote, updateNoteTitle, deleteNote }}>
+        <NotesContext.Provider value={{ notes, selected,  handleContentChange, handleTitleChange, getNote, 
+        createNote, deleteNote }}>
             {children}
         </NotesContext.Provider>
     )
@@ -125,13 +111,11 @@ function EditorProvider({ children }) {
 
     const [ isTextView, setIsTextView ] = useState(false);
     const [ isMobile, setIsMobile ] = useState(false);
-    const [ toggleColumns, setToggleColums ] = useState(false);
-
-
+    const [ isEditing, setIsEditing ] = useState(true);
     
-    function toggleColumnsForMobile() {
-        setToggleColums(prev => !prev);
-        console.log(toggleColumns);
+    function toggleEditing() {
+        setIsEditing(prev => !prev);
+        console.log(isEditing);
     }
 
     function toggleMobile() {
@@ -142,13 +126,9 @@ function EditorProvider({ children }) {
         setIsTextView(prev => !prev);
     }
 
-    // useEffect(() => {
-    //     if(window.innerWidth < 768) toggleMobile();
-    // }, []);
-
     return (
-        <EditorContext.Provider value={{ isTextView,  isMobile, toggleColumns, 
-        toggleTextView, toggleMobile, toggleColumnsForMobile }}>
+        <EditorContext.Provider value={{ isTextView,  isMobile, isEditing, 
+        toggleTextView, toggleMobile, toggleEditing }}>
             {children}
         </EditorContext.Provider>
     )

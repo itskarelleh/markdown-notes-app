@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateNoteButton } from '../inputs';
+import CreateNoteButton from '../buttons/CreateNoteButton';
 import { Block, Container, Heading } from 'react-bulma-components';
 
 const NoteSummary = ({ data }) => {
@@ -7,8 +7,10 @@ const NoteSummary = ({ data }) => {
     return (
         <>
             <Block key={`note-${data.id}`}>
-                <h1>{data.title}</h1>
-                <p>{data.created_at}</p>
+                <Heading renderAs='h2' className="note-summary-title is-size-6">
+                    {data.title}
+                </Heading>
+                <small className="text-is-black">{data.created_at}</small>
             </Block>
         </>
     )

@@ -3,7 +3,7 @@ import { Button, Menu } from 'react-bulma-components';
 import { NoteSummary } from '../notes';
 import { NotesContext } from '../../context';
 import Modal from '../bulma-components/Modal';
-import { CreateNoteButton } from '../inputs';
+import CreateNoteButton from '../buttons/CreateNoteButton';
 
 export default function ToggleMenu() {
 

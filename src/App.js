@@ -10,12 +10,11 @@ function App() {
 
   return (
     <NotesProvider>
-      <Container backgroundColor='light' className="App is-widescreen is-fluid is-fullwidth">
+      <Container 
+      className="App container p-0 mx-0 is-fullhd is-widescreen is-fluid">
         <EditorProvider>
           <Navigation/>
-          <div className="editor">
             <Editor />
-          </div>
         </EditorProvider>
       </Container>
     </NotesProvider>
