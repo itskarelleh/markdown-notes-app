@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { EditorContext } from '../../context';
+import { EditorContext } from '../../context/EditorProvider';
 import { Button } from 'react-bulma-components';
 
 const HtmlAndTextButton = () => {

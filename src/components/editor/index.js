@@ -1,16 +1,16 @@
 import React, { useContext, useEffect } from "react";
-import { NotesContext, EditorContext } from "../../context";
+import { NotesContext } from "../../context/NotesProvider";
+import { EditorContext } from "../../context/EditorProvider";
 import { NoNotesDetected } from "../notes";
 import { Box } from "react-bulma-components";
 import MarkdownInput from "./MarkdownInput";
-import HtmlOutput from "./HtmlOutput";
 import MarkdownOutput from "./MarkdownOutput";
-import DeleteNoteButton from "../buttons/DeleteNoteButton";
-import EditNoteButton from "../buttons/EditNoteButton";
 import EditorToolbar from "./EditorToolbar";
+import { ThemeContext, dark, light } from "../../context/ThemeProvider";
 
 function Editor() {
     
+    const { toggle } = useContext(ThemeContext);
     const { notes } = useContext(NotesContext);
     const { isEditing, toggleEditing } = useContext(EditorContext);
 
@@ -20,13 +20,12 @@ function Editor() {
     }
 
     return (
-        <div className="m-0 p-4 has-background-light" 
-        backgroundColor="light"
-        style={{ height: '100%', width: '100%' }}>
-            <Box backgroundColor="white" mx="auto" my="3"
+        <div className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className }`} 
+        style={{ width: '100%', minHeight: "100%" }}>
+            <Box className={` ${!toggle ? light.panel.className : dark.panel.className} mx-auto my-3`}
             style={{ width: '50%', height: '95%' }}>
                 <EditorToolbar />
-                {isEditing ? <MarkdownInput /> : <MarkdownOutput />}
+                {!isEditing ? <MarkdownInput /> : <MarkdownOutput />}
             </Box>  
         </div>
     )

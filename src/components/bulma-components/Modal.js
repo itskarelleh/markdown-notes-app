@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button } from 'react-bulma-components';
+import { ThemeContext, dark, light } from '../../context/ThemeProvider';
 
 export default function Modal({ children, onClose, open }) {
+
+    const { toggle } = useContext(ThemeContext);
 
     if(!open) return null;
 
@@ -10,11 +13,8 @@ export default function Modal({ children, onClose, open }) {
     return (
         <div className={`modal ${active}`}>
             <div className="modal-background"></div>
-            <div className="modal-content">
+            <div className={`modal-content`}>
                 <div className="actions">
-                    {onClose && <Button className="delete" 
-                    onClick={onClose}
-                    aria-label="close"></Button> }
                 </div>
                 {children}
             </div>

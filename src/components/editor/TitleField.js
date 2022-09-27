@@ -1,15 +1,19 @@
-import React, { useContext } from 'react';
-import { NotesContext } from '../../context';
+import React, { useContext, useEffect } from 'react';
+import { NotesContext } from '../../context/NotesProvider';
+import { ThemeContext, light, dark } from "../../context/ThemeProvider";
 
 export default function TitleField() {
-    
-    const { selected, handleTitleChange } = useContext(NotesContext);
 
+    const { selected, handleTitleChange } = useContext(NotesContext);
+    const { toggle } = useContext(ThemeContext);
+    
     return( 
-        <textarea type="text" 
-        className="title markdown-input"
-        value={selected.title != "" ? selected.title : "Write a Title"}
-        onChange={e => handleTitleChange(e)} style={{ height: 'auto'}} 
-        />);
+        <div className={`${!toggle ? light.text.className : dark.text.className } expandable-textarea title`}
+        contentEditable 
+        role="textbox"
+        onInput={handleTitleChange}
+        dangerouslySetInnerHTML={{ __html: selected.title }}>
+        </div>
+    );
 
 }

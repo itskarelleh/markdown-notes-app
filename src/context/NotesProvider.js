@@ -4,7 +4,6 @@ import * as bulmaToast from 'bulma-toast';
 import { dateFormatForNote } from '../utils';
 
 const NotesContext = React.createContext();
-const EditorContext = React.createContext();
 
 function NotesProvider({ children }) {
     const [ notes, setNotes ] = useState(JSON.parse(localStorage.getItem('notes') || '[]'));
@@ -33,14 +32,18 @@ function NotesProvider({ children }) {
             return note;
         }));    
     } 
+
     function handleTitleChange(e) {
-        var t = e.target.value;
+        var t = e.target.innerHTML;
+
+        window.getSelection();
 
         setSelected(prevState => ({ ...prevState, title: t, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
         setNotes(notes.map((note) => {
             if(note.id === selected.id) return {...note, title: t};
             return note;
         }));    
+
     } 
 
     function createNote() {
@@ -100,39 +103,12 @@ function NotesProvider({ children }) {
     
 
     return ( 
-        <NotesContext.Provider value={{ notes, selected,  handleContentChange, handleTitleChange, getNote, 
+        <NotesContext.Provider value={{ notes, selected, handleContentChange, handleTitleChange, getNote, 
         createNote, deleteNote }}>
             {children}
         </NotesContext.Provider>
     )
 }
 
-function EditorProvider({ children }) {
 
-    const [ isTextView, setIsTextView ] = useState(false);
-    const [ isMobile, setIsMobile ] = useState(false);
-    const [ isEditing, setIsEditing ] = useState(true);
-    
-    function toggleEditing() {
-        setIsEditing(prev => !prev);
-        console.log(isEditing);
-    }
-
-    function toggleMobile() {
-        setIsMobile(prev => !prev);
-    }
-
-    function toggleTextView() {
-        setIsTextView(prev => !prev);
-    }
-
-    return (
-        <EditorContext.Provider value={{ isTextView,  isMobile, isEditing, 
-        toggleTextView, toggleMobile, toggleEditing }}>
-            {children}
-        </EditorContext.Provider>
-    )
-}
-
-
-export { NotesContext, EditorContext, NotesProvider, EditorProvider }
+export { NotesContext, NotesProvider }

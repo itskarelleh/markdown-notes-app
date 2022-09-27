@@ -1,18 +1,23 @@
 import React, { useState, useContext } from 'react';
 import { Button, Menu } from 'react-bulma-components';
 import { NoteSummary } from '../notes';
-import { NotesContext } from '../../context';
+import { NotesContext } from '../../context/NotesProvider';
 import Modal from '../bulma-components/Modal';
 import CreateNoteButton from '../buttons/CreateNoteButton';
+import { ThemeContext, light, dark } from '../../context/ThemeProvider';
 
 export default function ToggleMenu() {
 
+    const { toggle, toggleTheme } = useContext(ThemeContext);
     const { notes, getNote } = useContext(NotesContext);
     const [ isOpen, setIsOpen ] = useState(false);
     
     return (
         <>
-        <Button className="side-menu-btn" onClick={() => setIsOpen(prev => !prev)}>
+        <Button className="side-menu-btn" textSize="4"
+        color={!toggle ? light.panel.style : dark.panel.style}
+        style={{ border: 'none' }}
+        onClick={() => setIsOpen(prev => !prev)}>
             {!isOpen ? <ion-icon name="menu-outline"></ion-icon> : <ion-icon name="close-outline"></ion-icon>}
         </Button>
         <Modal open={isOpen}>

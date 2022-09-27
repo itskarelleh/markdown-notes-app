@@ -37,14 +37,13 @@
     position: static;
     z-index: 999;
 }
-
+ 
 .editor {
     padding-top: 2rem;
 }
 
 #content {
     height: 100%;
-    overflow: scroll;
 }
 
 .textarea-wrapper {
@@ -61,4 +60,25 @@
 
 .textarea-spacing {
     padding: 0px 15px;
+}
+
+.expandable-textarea {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 1px 6px;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+    min-height: 40px;
+    line-height: 20px;
+  }
+
+.no-border {
+    border: none;
+}
+
+.theme-toggle-btn {
+    position: absolute;
+    right: 50px;
 }

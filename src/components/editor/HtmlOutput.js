@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { NotesContext } from '../../context';
-import { EditorContext } from '../../context';
+import { NotesContext } from '../../context/NotesProvider';
+import { EditorContext } from '../../context/EditorProvider';
 import { rawMarkup } from "../../utils";
 import { Block } from 'react-bulma-components'
 
