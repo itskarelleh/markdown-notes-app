@@ -16,7 +16,7 @@ export default function MarkdownOutput() {
     
     return (
         <>
-        <Content id="content">
+        <Content id="content" className="content-spacing">
             <Heading className={!toggle ? light.text.className : dark.text.className }>
                 {selected.title}
             </Heading>

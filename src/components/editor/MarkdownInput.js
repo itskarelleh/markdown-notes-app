@@ -1,23 +1,34 @@
-import React, { useContext } from 'react';
-import { Button } from 'react-bulma-components';
+import React, { useContext, useEffect, useRef } from 'react';
+import { Button, Content } from 'react-bulma-components';
 import { NotesContext } from '../../context/NotesProvider';
-import TitleField from './TitleField';
 import { ThemeContext, light, dark } from "../../context/ThemeProvider";
+import TextareaAutosize from 'react-textarea-autosize';
 
 function MarkdownInput() {
     
-    const { selected, handleContentChange } = useContext(NotesContext);
+    const { selected, handleTitleChange, handleContentChange } = useContext(NotesContext);
     const { toggle } = useContext(ThemeContext);
+
+    const textareaStyle = {
+        background: "none",
+        border: "none",
+        height: "auto",
+        resize: "none",
+    }
     
     return (
-        <div className="markdown-input">
-        <TitleField />
-        <div contentEditable
-        role="textbox" 
-        className={`${!toggle ? light.text.className : dark.text.className } textarea-expandable textarea-spacing`}
-        onChange={handleContentChange}>
-            {selected.content === "" ? "Start typing..." : selected.content}
-        </div>
+        <div className="content-spacing">
+                <TextareaAutosize 
+                minRows={1}
+                style={textareaStyle}
+                className={`${!toggle ? light.text.className : dark.text.className } textarea-input textarea-size title`} 
+                value={selected.title} 
+                onChange={handleTitleChange}/>
+                <TextareaAutosize 
+                style={textareaStyle}
+                minRows={1}
+                value={selected.content} onChange={handleContentChange}
+                className={`${!toggle ? light.text.className : dark.text.className} textarea-input textarea-size`}  />
         </div>
     )
 }

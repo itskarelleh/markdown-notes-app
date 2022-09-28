@@ -29,7 +29,7 @@ const dark = {
         className: 'has-background-dark'
     },
     text: {
-        className: 'has-text-light',
+        className: 'has-text-white',
         style: 'light',
     },
     textConstrast: 'white',

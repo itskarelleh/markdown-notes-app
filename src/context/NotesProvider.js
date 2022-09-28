@@ -34,9 +34,7 @@ function NotesProvider({ children }) {
     } 
 
     function handleTitleChange(e) {
-        var t = e.target.innerHTML;
-
-        window.getSelection();
+        var t = e.target.value;
 
         setSelected(prevState => ({ ...prevState, title: t, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
         setNotes(notes.map((note) => {

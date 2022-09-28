@@ -12,8 +12,7 @@ function Editor() {
     
     const { toggle } = useContext(ThemeContext);
     const { notes } = useContext(NotesContext);
-    const { isEditing, toggleEditing } = useContext(EditorContext);
-
+    const { isEditing } = useContext(EditorContext);
 
     if(notes.length === 0 || notes === undefined) {
         return <NoNotesDetected />;
@@ -22,7 +21,7 @@ function Editor() {
     return (
         <div className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className }`} 
         style={{ width: '100%', minHeight: "100%" }}>
-            <Box className={` ${!toggle ? light.panel.className : dark.panel.className} mx-auto my-3`}
+            <Box className={` ${!toggle ? light.panel.className : dark.panel.className} mx-auto my-6`}
             style={{ width: '50%', height: '95%' }}>
                 <EditorToolbar />
                 {!isEditing ? <MarkdownInput /> : <MarkdownOutput />}

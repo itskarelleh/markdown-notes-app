@@ -3,7 +3,7 @@
 }
 
 #no-notes {
-    height: 75vh;
+    height: 100%;
     display: flex;
 }
 
@@ -50,7 +50,7 @@
     width: 100%;
 }
 
-.markdown-input{
+.content-spacing {
     height: 90%;
     border: none;
     width: 100%;
@@ -58,21 +58,34 @@
     box-shadow: none;
 }
 
+.textarea-size {
+    width: 100%;
+    background: none;
+    border: none;
+}
+
 .textarea-spacing {
     padding: 0px 15px;
 }
 
-.expandable-textarea {
+.textarea-input {
     font-family: inherit;
     font-size: inherit;
     padding: 1px 6px;
     display: block;
     width: 100%;
     overflow: hidden;
+    background: none;
+    border: none;
     resize: none;
     min-height: 40px;
     line-height: 20px;
   }
+
+  .textarea:not([rows]) {
+    max-height: 40em;
+    min-height: 5em;
+}
 
 .no-border {
     border: none;
@@ -81,4 +94,36 @@
 .theme-toggle-btn {
     position: absolute;
     right: 50px;
+}
+
+.modal-menu {
+    overflow-y: scroll;
+}
+
+.brand-menu-bg {
+    position: absolute;
+    width: 15rem;
+    z-index: 999;
+    background: #363636;
+    padding: 0;
+    left: 0;
+    margin: 0;
+}
+
+.note-summaries li {
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 2rem;
+}
+
+.note-summaries li:last-child {
+    border-bottom: none;
+}
+
+.note-summary:last-of-type {
+    border-bottom: none;
+}
+
+.date-timestamp {
+    margin-bottom: 1rem;
+    display: inline-block;
 }
