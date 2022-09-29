@@ -1,5 +1,7 @@
-# Welcome to Markdown Notes 
-## Notes for the Web
+# Welcome to Markdown Notes - Better Notes for the Web
+
+## Description
+This Notes App allows the user to write notes with Markdown, a syntax that makes it easy to format an online document.
 
 ### What's Markdown 🤔
 markdown
