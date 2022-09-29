@@ -4,9 +4,6 @@
 This Notes App allows the user to write notes with Markdown, a syntax that makes it easy to format an online document.
 
 ### What's Markdown 🤔
-markdown
-:  lightweight markup language for creating formatted text using a plain-text editor
-
 Markdown is a simple syntax that is used for formatting text on web pages. You can make text **bold** or  *italicized*.  You can also create amazing write order lists and much more.
 
 ### Why Use Markdown Editor
