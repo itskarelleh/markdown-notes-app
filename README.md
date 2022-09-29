@@ -1,17 +1,13 @@
 # Welcome to Markdown Notes - Better Notes for the Web
 
 ## Description
-This Notes App allows the user to write notes with Markdown, a syntax that makes it easy to format an online document.
+This web app allows the user to write notes with Markdown, a syntax that makes it easy to format an online document.
 
 ### What's Markdown 🤔
-Markdown is a simple syntax that is used for formatting text on web pages. You can make text **bold** or  *italicized*.  You can also create amazing write order lists and much more.
+Markdown is a simple syntax that is used for formatting text on web pages. You can make text **bold** or  *italicized*.  You can also write order lists and much more.
 
 ### Why Use Markdown Editor
-
-- Easy and Fast to Learn
-- Converts to HTML Easily
-- Used Everywhere
-
+It's easy to use and can easily be converted to HTML
 
 # Getting Started with Create React App
 
