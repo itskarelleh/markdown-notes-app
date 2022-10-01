@@ -3,7 +3,9 @@ import { Button } from 'react-bulma-components';
 import { EditorContext } from '../../context/EditorProvider';
  
 const EditNoteButton = () => {
+    
     const { isEditing, toggleEditing } = useContext(EditorContext);
+    
     return (
         <Button size="small" className="is-rounded"
         color={isEditing ? "warning" : "success"} 

@@ -6,6 +6,7 @@ import { dateFormatForNote } from '../utils';
 const NotesContext = React.createContext();
 
 function NotesProvider({ children }) {
+    
     const [ notes, setNotes ] = useState(JSON.parse(localStorage.getItem('notes') || '[]'));
     const [ selected, setSelected ] = useState(JSON.parse(localStorage.getItem('selected') || '{}'));
 
@@ -22,33 +23,13 @@ function NotesProvider({ children }) {
         localStorage.setItem('selected', JSON.stringify(selected));
     }, [selected]);
 
-    function handleContentChange(e) {
-        var c = e.target.value;
-
-        setSelected(prevState => ({ ...prevState, content: c, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
-        setNotes(notes.map((note) => {
-            if(note.id === selected.id) return {...note, content: c};
-
-            return note;
-        }));    
-    } 
-
-    function handleTitleChange(e) {
-        var t = e.target.value;
-
-        setSelected(prevState => ({ ...prevState, title: t, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
-        setNotes(notes.map((note) => {
-            if(note.id === selected.id) return {...note, title: t};
-            return note;
-        }));    
-
-    } 
-
+    //create
     function createNote() {
+
         var newNote = {
             id: uuidv4(), 
             title: "Untitled",
-            content: "# Untitled \n empty.",
+            content: "",
             created_at: dateFormatForNote
         }
 
@@ -71,34 +52,44 @@ function NotesProvider({ children }) {
             bulmaToast({ message: err, type: 'is-danger'});
         }
     }
+
+    //update
+    function handleContentChange(e) {
+        var c = e.target.value;
+
+        setSelected(prevState => ({ ...prevState, content: c, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
+        setNotes(notes.map((note) => {
+            if(note.id === selected.id) return {...note, content: c};
+
+            return note;
+        }));    
+    } 
+
+    function handleTitleChange(e) {
+        var t = e.target.value;
+
+        setSelected(prevState => ({ ...prevState, title: t, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
+        setNotes(notes.map((note) => {
+            if(note.id === selected.id) return {...note, title: t};
+            return note;
+        }));    
+
+    } 
     
     //delete
     function deleteNote(id) {
-        try {
-            setNotes((curr) => {
-                if(notes.length === 1) {return [];}
-                else {
-                    curr.filter(note => {return note.id !== id});
-                }
-            });
 
-            if(notes.length === 0) {
-                setSelected(() => {
-                    return {};
-                });
-            }
-            else {
-                setSelected(notes[notes.length-1]);
-            }
+        var newNotes = notes.filter((note) => note.id !== id);
+    
+        try {
+            setSelected({});
+            setNotes(newNotes);
         } catch(err) {
             bulmaToast.toast({ message: err, type: 'is-danger'})
         } finally {
-           
             bulmaToast.toast({ message: "Note deleted", type: 'is-success'})
         }
     }
-
-    
 
     return ( 
         <NotesContext.Provider value={{ notes, selected, handleContentChange, handleTitleChange, getNote, 
@@ -107,6 +98,5 @@ function NotesProvider({ children }) {
         </NotesContext.Provider>
     )
 }
-
 
 export { NotesContext, NotesProvider }

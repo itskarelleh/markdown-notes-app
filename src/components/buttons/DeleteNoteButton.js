@@ -4,9 +4,9 @@ import { NotesContext } from '../../context/NotesProvider';
 import { dark, light, ThemeContext } from '../../context/ThemeProvider';
 import Modal from '../bulma-components/Modal';
 
-const DeleteNoteButton = () => {
+const DeleteNoteButton = ({ id }) => {
     
-    const { deleteNote, selected } = useContext(NotesContext);
+    const { deleteNote } = useContext(NotesContext);
     const [ isOpen, setIsOpen ] = useState(false);
     const { toggle } = useContext(ThemeContext);
     
@@ -30,10 +30,13 @@ const DeleteNoteButton = () => {
                     </Block>
                     <div className={`field is-grouped is-justify-content-flex-end`}>
                         <p className="control">
-                        <Button onClick={() => { 
-                            deleteNote(selected.id);
-                            setIsOpen(prev => !prev);
-                        }} className="is-success">Yes</Button>
+                            <Button onClick={() => { 
+                                deleteNote(id);
+                                setIsOpen(prev => !prev);
+                            }} 
+                            className="is-success">
+                                Yes
+                            </Button>
                         </p>
                     
                         <p className="control">
@@ -42,8 +45,6 @@ const DeleteNoteButton = () => {
                             </Button>
                         </p>
                     </div>
-
-                    
                 </div>
             </Modal>
         </>

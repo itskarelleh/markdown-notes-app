@@ -28,7 +28,7 @@ export default function ToggleMenu() {
         <Modal open={isOpen}>
             <div className={`modal-menu ${!toggle ? light.panel.className : dark.panel.className }`}>
             <Menu style={{ marginTop: '5rem',padding: '0 1rem' }}>
-                <CreateNoteButton />
+                <CreateNoteButton label="Create new note" />
                 <p className="menu-label">Notes</p>
                 <ul className="mt-5 note-summaries">
                     {notes && notes.map((note) => (
