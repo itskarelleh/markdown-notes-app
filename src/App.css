@@ -2,9 +2,19 @@
     height: 100%;
 }
 
-#no-notes {
+#notes-init {
     height: 100%;
     display: flex;
+}
+
+#notes-init .block {
+    width: 80%;
+    height: 90%
+}
+
+#notes-init #create-btn-init {
+    height: auto;
+    width: '100%'
 }
 
 .note-summary-title {
@@ -44,6 +54,10 @@
 
 #content {
     height: 100%;
+}
+
+.content-body {
+    color: inherit;
 }
 
 .textarea-wrapper {
@@ -98,6 +112,10 @@
 
 .modal-menu {
     overflow-y: scroll;
+}
+
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+    color: inherit;
 }
 
 .brand-menu-bg {

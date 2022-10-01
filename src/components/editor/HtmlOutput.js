@@ -7,12 +7,11 @@ import { Block } from 'react-bulma-components'
 export default function HtmlOutput() {
     
     const { selected } = useContext(NotesContext);
-    const { isTextView } = useContext(EditorContext);
     const [ markup, setMarkup ] = useState(null);
 
     useEffect(() => {
         setMarkup(rawMarkup(selected.content));
-    });
+    }, [ selected.content ]);
     
     if(!markup) {
         return null;

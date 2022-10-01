@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Content, Block, Button, Heading } from 'react-bulma-components';
+import { Content, Block, Heading } from 'react-bulma-components';
 import { NotesContext } from "../../context/NotesProvider";
 import { ThemeContext, light, dark } from "../../context/ThemeProvider";
 import { rawMarkup } from "../../utils";
@@ -12,7 +12,7 @@ export default function MarkdownOutput() {
 
     useEffect(() => {
         setMarkup(rawMarkup(selected.content));
-    }, [markup]);
+    }, [selected.content]);
     
     return (
         <>
@@ -20,11 +20,11 @@ export default function MarkdownOutput() {
             <Heading className={!toggle ? light.text.className : dark.text.className }>
                 {selected.title}
             </Heading>
-            <Block className={!toggle ? light.text.className : dark.text.className }>
-                {selected.updated_at && selected.updated_at}
-            </Block>
-            <Block className={!toggle ? light.text.className : dark.text.className }
-            dangerouslySetInnerHTML={{ __html: markup }}></Block>
+            {selected.updated_at  && <Block className={!toggle ? light.text.className : dark.text.className }>
+                {selected.updated_at}
+            </Block>}
+            <Content className={`${!toggle ? light.text.className : dark.text.className} content-body `}
+            dangerouslySetInnerHTML={{ __html: markup }}></Content>
         </Content> 
         </>
         

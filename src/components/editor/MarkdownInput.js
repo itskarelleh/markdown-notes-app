@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import { Button, Content } from 'react-bulma-components';
+import React, { useContext } from 'react';
 import { NotesContext } from '../../context/NotesProvider';
 import { ThemeContext, light, dark } from "../../context/ThemeProvider";
 import TextareaAutosize from 'react-textarea-autosize';
@@ -21,7 +20,8 @@ function MarkdownInput() {
                 <TextareaAutosize 
                 minRows={1}
                 style={textareaStyle}
-                className={`${!toggle ? light.text.className : dark.text.className } textarea-input textarea-size title`} 
+                className={`${!toggle ? light.text.className : dark.text.className } 
+                textarea-input textarea-size is-size-3 title`} 
                 value={selected.title} 
                 onChange={handleTitleChange}/>
                 <TextareaAutosize 

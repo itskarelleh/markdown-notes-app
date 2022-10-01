@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { NotesContext } from "../../context/NotesProvider";
 import { EditorContext } from "../../context/EditorProvider";
-import { NoNotesDetected } from "../notes";
+import { NoNotesDetected, NotesList } from "../notes";
 import { Box } from "react-bulma-components";
 import MarkdownInput from "./MarkdownInput";
 import MarkdownOutput from "./MarkdownOutput";
@@ -11,11 +11,13 @@ import { ThemeContext, dark, light } from "../../context/ThemeProvider";
 function Editor() {
     
     const { toggle } = useContext(ThemeContext);
-    const { notes } = useContext(NotesContext);
+    const { notes, selected } = useContext(NotesContext);
     const { isEditing } = useContext(EditorContext);
 
     if(notes.length === 0 || notes === undefined) {
         return <NoNotesDetected />;
+    }else if(Object.keys(selected).length === 0 && notes.length >= 1) {
+        return <NotesList />;
     }
 
     return (

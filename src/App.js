@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import "./App.css";
 import 'bulma/css/bulma.min.css';
+import "./App.css";
 import Navigation from './components/nav/Navigation';
 import { EditorProvider } from './context/EditorProvider';
 import { NotesProvider } from './context/NotesProvider';
