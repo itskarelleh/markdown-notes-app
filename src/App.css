@@ -9,12 +9,12 @@
 
 #notes-init .block {
     width: 80%;
-    height: 90%
+    height: 90%;
 }
 
 #notes-init #create-btn-init {
     height: auto;
-    width: '100%'
+    width: 100%;
 }
 
 .note-summary-title {
