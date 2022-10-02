@@ -2,7 +2,9 @@ html, body, #root {
   height: 100%;
 }
 
-
+blockquote {
+  color: black;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

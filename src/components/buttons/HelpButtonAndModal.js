@@ -17,8 +17,16 @@ export default function HelpButtonAndModal() {
             color={toggle ? "light" : "dark"} title={"Help"} size="small" className="is-rounded">
                 <ion-icon name="help-outline"></ion-icon>
             </Button>
-            <Modal open={isOpen} onClose={handleOpen}>
-                <div className={`p-6 content-wrapper ${!toggle ? light.panel.className : dark.panel.className}`}>
+            <Modal width={"75%"} open={isOpen} onClose={handleOpen}>
+                <header className={`modal-card-head 
+                ${!toggle ? light.text.className : dark.text.className }
+                ${!toggle ? light.panel.className : dark.panel.className}`}>
+                    <p className="modal-card-title">Help</p>
+                    <button onClick={handleOpen} 
+                    className="delete" aria-label='close'/>
+                </header>
+                <div className={`p-6 content-wrapper ${!toggle ? light.panel.className : dark.panel.className} 
+                ${!toggle ? light.text.className : dark.text.className}`}>
                     <MarkdownHelperModal />
                 </div>
             </Modal>

@@ -14,10 +14,10 @@ const emphasis = [
     "Here's some ***bolded and italicized*** text.",
 ];
 
-const blockquotes = [
-    "> Dorothy followed her through many of the beautiful rooms in her castle.",
-    "> Dorothy followed her through many of the beautiful rooms in her castle. \r\n > \r\n > The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.",
-    "> Dorothy followed her through many of the beautiful rooms in her castle. \r\n > \r\n >> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood."
+const blockQuotes = [
+    { label: "Simple", content: "> Dorothy followed her through many of the beautiful rooms in her castle."},
+    { label: "Nested", content: "> Dorothy followed her through many of the beautiful rooms in her castle. \r\n > \r\n > The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood."},
+    { label: "Nested", content: "> Dorothy followed her through many of the beautiful rooms in her castle. \r\n > \r\n >> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood."}
 ];
 
 const lists = [
@@ -39,4 +39,4 @@ const taskLists = [
 ];
 
 
-export { headingsAndParagraphs, emphasis, blockquotes, code, lists, images, taskLists };
+export { headingsAndParagraphs, emphasis, blockQuotes, code, lists, images, taskLists };
