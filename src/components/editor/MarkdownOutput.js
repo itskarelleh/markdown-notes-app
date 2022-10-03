@@ -14,16 +14,19 @@ export default function MarkdownOutput() {
         setMarkup(rawMarkup(selected.content));
     }, [selected.content]);
     
+    const toggleStyles = {
+
+    }
     return (
         <>
-        <Content id="content" className="content-spacing">
+        <Content className="content-spacing">
             <Heading className={!toggle ? light.text.className : dark.text.className }>
                 {selected.title}
             </Heading>
             {selected.updated_at  && <Block className={!toggle ? light.text.className : dark.text.className }>
                 {selected.updated_at}
             </Block>}
-            <Content className={`${!toggle ? light.text.className : dark.text.className} content-body `}
+            <Content className={`${!toggle ? light.text.className : dark.text.className} content-body`}
             dangerouslySetInnerHTML={{ __html: markup }}></Content>
         </Content> 
         </>
