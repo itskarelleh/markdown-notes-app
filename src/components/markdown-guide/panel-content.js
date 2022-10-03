@@ -15,9 +15,8 @@ const emphasis = [
 ];
 
 const blockQuotes = [
-    { label: "Simple", content: "> Dorothy followed her through many of the beautiful rooms in her castle."},
-    { label: "Nested", content: "> Dorothy followed her through many of the beautiful rooms in her castle. \r\n > \r\n > The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood."},
-    { label: "Nested", content: "> Dorothy followed her through many of the beautiful rooms in her castle. \r\n > \r\n >> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood."}
+    { label: "Simple", content: "> there is no such thing as disciplining your cat."},
+    { label: "Nested", content: "> there is no such thing as disciplining your cat.\r\n > \r\n >> ... when it comes to multiple-cat homes, that's where rules go to die."}
 ];
 
 const lists = [
@@ -37,6 +36,5 @@ const taskLists = [
     "- [ ] Write/Chant Affirmations",
     "- [ ] Give Gratitude to the universe"
 ];
-
 
 export { headingsAndParagraphs, emphasis, blockQuotes, code, lists, images, taskLists };

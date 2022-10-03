@@ -1,5 +1,5 @@
 import React from 'react';
-import { Block, Container, Content, Heading, Section } from 'react-bulma-components';
+import { Block, Content, Heading } from 'react-bulma-components';
 import { headingsAndParagraphs, emphasis, lists, 
     images, code, blockQuotes, taskLists } from './panel-content';
 import { rawMarkup } from '../../utils';

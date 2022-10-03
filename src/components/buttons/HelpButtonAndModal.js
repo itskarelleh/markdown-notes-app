@@ -21,7 +21,7 @@ export default function HelpButtonAndModal() {
                 <header className={`modal-card-head 
                 ${!toggle ? light.text.className : dark.text.className }
                 ${!toggle ? light.panel.className : dark.panel.className}`}>
-                    <p className="modal-card-title">Help</p>
+                    <p className={`modal-card-title ${!toggle ? light.text.className : dark.text.className }`}>Help</p>
                     <button onClick={handleOpen} 
                     className="delete" aria-label='close'/>
                 </header>

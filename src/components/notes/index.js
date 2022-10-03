@@ -7,7 +7,6 @@ import { NotesContext } from '../../context/NotesProvider';
 const NoteSummary = ({ data }) => {
 
     const { toggle } = useContext(ThemeContext);
-    console.log(data.created_at);
 
     return (
         <>
