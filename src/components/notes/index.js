@@ -7,7 +7,6 @@ import { NotesContext } from '../../context/NotesProvider';
 const NoteSummary = ({ data }) => {
 
     const { toggle } = useContext(ThemeContext);
-    console.log(data.created_at);
 
     return (
         <>
@@ -33,11 +32,14 @@ const NotesList = () => {
     const { toggle } = useContext(ThemeContext);
 
     return (
-        <div id="notes-init" className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className } is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center`}>
+        <div id="notes-init" className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className } 
+        is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center`}>
             <Block className={`${!toggle ? light.panel.className : dark.panel.className} 
             is-flex is-align-self-center is-flex-direction-column p-4
             is-justify-content-center is-align-items-center`}>
-                <div id="create-btn-init" className="is-flex-direction-row is-justify-content-flex-end mr-5">
+                <div id="create-btn-init" 
+                style={{ width: '100%' }}
+                className="is-flex-direction-row is-justify-content-flex-end mr-5">
                     <CreateNoteButton justifyContent={"flex-end"} />
                 </div>
                 <Heading renderAs="h1" 
