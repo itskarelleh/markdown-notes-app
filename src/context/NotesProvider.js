@@ -2,46 +2,50 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import * as bulmaToast from 'bulma-toast';
 import { dateFormatForNote } from '../utils';
+import { db, transferLocalStorageToIndexedDB } from '../db';
+import { useLiveQuery } from 'dexie-react-hooks';
 
 const NotesContext = React.createContext();
 
 function NotesProvider({ children }) {
-    
-    const [ notes, setNotes ] = useState(JSON.parse(localStorage.getItem('notes') || '[]'));
-    const [ selected, setSelected ] = useState(JSON.parse(localStorage.getItem('selected') || '{}'));
+    const [ notes, setNotes ] = useState([]);
+    const [ selected, setSelected ] = useState({});
 
     useEffect(() => {
-        setNotes(JSON.parse(localStorage.getItem('notes')));
-        setSelected(JSON.parse(localStorage.getItem('selected')));
-    }, []);
+        if(localStorage.getItem('notes') != null) {
+            transferLocalStorageToIndexedDB();
 
-    useEffect(() => {
-        localStorage.setItem('notes', JSON.stringify(notes));
-    }, [notes]);
+            const all = db.notes.toArray();
 
-    useEffect(() => {
-        localStorage.setItem('selected', JSON.stringify(selected));
-    }, [selected]);
+            setNotes(all);
+
+            console.log("notes" + all);
+        }
+    });
 
     //create
-    function createNote() {
-
-        var newNote = {
-            id: uuidv4(), 
-            title: "Untitled",
-            content: "",
-            created_at: dateFormatForNote
-        }
-
+    async function createNote() {
         try {
-            setNotes(prev => [...prev, newNote ]);
-            setSelected(newNote);
+            var newNote = {
+                id: uuidv4(), 
+                title: "Untitled",
+                content: "",
+                created_at: dateFormatForNote,
+                updated_at: dateFormatForNote
+            }
+
+            await db.notes.add(newNote);
+            // setNotes(prev => [...prev, newNote ]);
+            // setSelected(newNote);
         } catch(err) {
-            console.log({message: err});
+            console.error({ message: err });
             bulmaToast.toast({ message: err, type: 'is-danger'});
         }
     }
 
+    async function getAllNotes() {
+
+    }
     //read
     function getNote(id) {
         try {

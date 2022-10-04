@@ -9,6 +9,8 @@
     "bulma": "^0.9.4",
     "bulma-switch": "^2.0.4",
     "bulma-toast": "^2.4.1",
+    "dexie": "^3.2.2",
+    "dexie-react-hooks": "^1.1.1",
     "dompurify": "^2.3.10",
     "jsdom": "^20.0.0",
     "marked": "^4.0.18",
