@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { NotesContext } from "../../context/NotesProvider";
 import { EditorContext } from "../../context/EditorProvider";
 import { NoNotesDetected, NotesList } from "../notes";
