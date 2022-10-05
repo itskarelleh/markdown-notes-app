@@ -1,9 +1,6 @@
 .App {
     height: 100%;
 }
-strong {
-    color: inherit;
-};
 
 #notes-init {
     height: 100%;
@@ -17,7 +14,7 @@ strong {
 
 #notes-init #create-btn-init {
     height: auto;
-    width: '100%';
+    width: 100%;
 }
 
 .note-summary-title {

@@ -3,6 +3,8 @@ import CreateNoteButton from '../buttons/CreateNoteButton';
 import { Block, Heading } from 'react-bulma-components';
 import { ThemeContext, dark, light } from '../../context/ThemeProvider';
 import { NotesContext } from '../../context/NotesProvider';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { db } from '../../db';
 
 const NoteSummary = ({ data }) => {
 
@@ -65,7 +67,9 @@ const NoNotesDetected = () => {
     const { toggle } = useContext(ThemeContext);
 
     return (
-    <div id="notes-init" className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className } is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center`} max>
+    <div id="notes-init" className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className } 
+    is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center`}
+    style={{ height: '100%' }}>
         <Block className="is-flex is-align-self-center is-flex-direction-column is-justify-content-center is-align-items-center">
             <Heading renderAs="h2" 
             className={`${!toggle ? light.text.className : dark.text.className}`}

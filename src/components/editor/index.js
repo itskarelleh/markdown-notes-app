@@ -14,17 +14,20 @@ function Editor() {
     const { notes, selected } = useContext(NotesContext);
     const { isEditing } = useContext(EditorContext);
 
-    if(notes.length === 0 || notes === undefined) {
-        return <NoNotesDetected />;
-    }else if(Object.keys(selected).length === 0 && notes.length >= 1) {
-        return <NotesList />;
+    if(!selected || Object.keys(selected).length === 0) {
+        return (
+            <>
+                {notes.length >= 1 || notes.length != undefined ? <NotesList /> :
+                <NoNotesDetected />}
+            </>
+        )
     }
 
     return (
         <div className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className }`} 
         style={{ width: '100%', minHeight: "100%" }}>
             <Box className={` ${!toggle ? light.panel.className : dark.panel.className} mx-auto my-6`}
-            style={{ width: '50%', height: '95%' }}>
+            style={{ width: '90%', height: '95%' }}>
                 <EditorToolbar />
                 {!isEditing ? <MarkdownInput /> : <MarkdownOutput />}
             </Box>  

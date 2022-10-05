@@ -8,6 +8,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 const NotesContext = React.createContext();
 
 function NotesProvider({ children }) {
+    
     const [ notes, setNotes ] = useState([]);
     const [ selected, setSelected ] = useState({});
 
@@ -23,6 +24,23 @@ function NotesProvider({ children }) {
         }
     });
 
+    useLiveQuery(async () => {
+        const notesList = await db.notes.toArray();
+
+        setNotes(() => { return notesList });
+    }, []);
+
+     //read
+     function getNote(id) {
+        try {
+            setSelected(notes.find((note) => {
+                return note.id === id;
+            }));
+        } catch(err) {
+            bulmaToast({ message: err, type: 'is-danger'});
+        }
+    }
+
     //create
     async function createNote() {
         try {
@@ -35,65 +53,62 @@ function NotesProvider({ children }) {
             }
 
             await db.notes.add(newNote);
-            // setNotes(prev => [...prev, newNote ]);
-            // setSelected(newNote);
+            setSelected(newNote);
         } catch(err) {
             console.error({ message: err });
             bulmaToast.toast({ message: err, type: 'is-danger'});
         }
     }
-
-    async function getAllNotes() {
-
-    }
-    //read
-    function getNote(id) {
-        try {
-            setSelected(notes.find((note) => {
-                return note.id === id;
-            }));
-        } catch(err) {
-            bulmaToast({ message: err, type: 'is-danger'});
-        }
-    }
+   
 
     //update
-    function handleContentChange(e) {
+    async function handleContentChange(e) {
         var c = e.target.value;
 
-        setSelected(prevState => ({ ...prevState, content: c, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
+        setSelected(prevState => ({ ...prevState, content: c, updated_at: dateFormatForNote }));
+        
         setNotes(notes.map((note) => {
-            if(note.id === selected.id) return {...note, content: c};
-
+            if(note.id === selected.id) return {...note, content: c, updated_at: dateFormatForNote};
             return note;
         }));    
+
+        await db.notes.put(selected);
     } 
 
-    function handleTitleChange(e) {
+    async function handleTitleChange(e) {
         var t = e.target.value;
 
-        setSelected(prevState => ({ ...prevState, title: t, updated_at: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }));
+        setSelected(prevState => ({ ...prevState, title: t, updated_at: dateFormatForNote }));
+        
         setNotes(notes.map((note) => {
-            if(note.id === selected.id) return {...note, title: t};
+            if(note.id === selected.id) return {...note, title: t, updated_at: dateFormatForNote};
             return note;
         }));    
+
+        await db.notes.put(selected);
 
     } 
     
     //delete
-    function deleteNote(id) {
+    async function deleteNote(id) {
 
         var newNotes = notes.filter((note) => note.id !== id);
     
         try {
             setSelected({});
             setNotes(newNotes);
+            await db.notes.delete(id);
         } catch(err) {
             bulmaToast.toast({ message: err, type: 'is-danger'})
         } finally {
             bulmaToast.toast({ message: "Note deleted", type: 'is-success'})
         }
     }
+
+    // async function deleteMultiple(ids) {
+    //     db.notes.bulkDelete(ids);
+    //     setNotes()
+    // }
 
     return ( 
         <NotesContext.Provider value={{ notes, selected, handleContentChange, handleTitleChange, getNote, 
