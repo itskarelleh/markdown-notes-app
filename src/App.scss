@@ -1,3 +1,5 @@
+@charset "utf-8"; @import "~bulma/bulma.sass";
+
 .App {
     height: 100%;
 }
@@ -32,6 +34,7 @@
     position: absolute;
     z-index: 999;
     left: 4rem;
+    top: 0;
 }
 
 .modal-menu {
@@ -44,7 +47,7 @@
 }
 
 .side-menu-btn {
-    position: static;
+    position: absolute;
     z-index: 999;
 }
  
