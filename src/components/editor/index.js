@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { NotesContext } from "../../context/NotesProvider";
 import { EditorContext } from "../../context/EditorProvider";
 import { NoNotesDetected, NotesList } from "../notes";
-import { Box } from "react-bulma-components";
 import MarkdownInput from "./MarkdownInput";
 import MarkdownOutput from "./MarkdownOutput";
 import EditorToolbar from "./EditorToolbar";
@@ -10,7 +9,7 @@ import { ThemeContext, dark, light } from "../../context/ThemeProvider";
 
 function Editor() {
     
-    const { toggle } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     const { notes, selected } = useContext(NotesContext);
     const { isEditing } = useContext(EditorContext);
 
@@ -24,13 +23,13 @@ function Editor() {
     }
 
     return (
-        <div className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className }`} 
+        <div className={`m-0 p-4 ${theme.background.className}`} 
         style={{ width: '100%', minHeight: "100%" }}>
-            <Box className={` ${!toggle ? light.panel.className : dark.panel.className} mx-auto my-6`}
+            <div className={`box ${theme.panel.className} mx-auto my-6`}
             style={{ width: '90%', height: '95%' }}>
                 <EditorToolbar />
                 {!isEditing ? <MarkdownInput /> : <MarkdownOutput />}
-            </Box>  
+            </div>  
         </div>
     )
 };

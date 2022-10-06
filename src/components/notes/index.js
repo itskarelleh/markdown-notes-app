@@ -8,19 +8,19 @@ import { db } from '../../db';
 
 const NoteSummary = ({ data }) => {
 
-    const { toggle } = useContext(ThemeContext);
+    const { toggle, theme } = useContext(ThemeContext);
 
     return (
         <>
             <Block key={`note-${data.id}`}>
                 <Block>
                     <Heading renderAs='h2' style={{ display: 'inline'}}
-                    className={`note-summary-title is-size-6 ${!toggle ? light.text.className : dark.text.className }`}>
+                    className={`note-summary-title is-size-6 ${theme.text.className }`}>
                         {data.title}
                     </Heading>
                 </Block>
                
-                <small style={{ marginBottom: '1rem' }} className={`${!toggle ? light.text.className : dark.text.className } date-timestamp`}>
+                <small style={{ marginBottom: '1rem' }} className={`${theme.text.className} date-timestamp`}>
                     {data.created_at}
                 </small>
             </Block>
@@ -31,12 +31,12 @@ const NoteSummary = ({ data }) => {
 const NotesList = () => {
 
     const { notes, getNote } = useContext(NotesContext);
-    const { toggle } = useContext(ThemeContext);
+    const { toggle, theme } = useContext(ThemeContext);
 
     return (
-        <div id="notes-init" className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className } 
+        <div id="notes-init" className={`m-0 p-4 ${theme.background.className} 
         is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center`}>
-            <Block className={`${!toggle ? light.panel.className : dark.panel.className} 
+            <Block className={`${theme.panel.className}  
             is-flex is-align-self-center is-flex-direction-column p-4
             is-justify-content-center is-align-items-center`}>
                 <div id="create-btn-init" 
@@ -45,7 +45,7 @@ const NotesList = () => {
                     <CreateNoteButton justifyContent={"flex-end"} />
                 </div>
                 <Heading renderAs="h1" 
-                className={`${!toggle ? light.text.className : dark.text.className}`}>
+                className={`${theme.text.className} `}>
                     Welcome
                 </Heading>
                 <Block style={{ width: "100%", padding: "0rem 2rem", overflowY: "scroll"}}>
@@ -64,15 +64,15 @@ const NotesList = () => {
 
 const NoNotesDetected = () => {
     
-    const { toggle } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
     return (
-    <div id="notes-init" className={`m-0 p-4 ${!toggle ? light.background.className : dark.background.className } 
+    <div id="notes-init" className={`m-0 p-4 ${theme.background.className} } 
     is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center`}
     style={{ height: '100%' }}>
         <Block className="is-flex is-align-self-center is-flex-direction-column is-justify-content-center is-align-items-center">
             <Heading renderAs="h2" 
-            className={`${!toggle ? light.text.className : dark.text.className}`}
+            className={`${theme.text.className}`}
             weight="semibold">No Notes Yet.</Heading>
             <CreateNoteButton />
         </Block>

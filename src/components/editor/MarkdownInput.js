@@ -6,7 +6,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 function MarkdownInput() {
     
     const { selected, handleTitleChange, handleContentChange } = useContext(NotesContext);
-    const { toggle } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
     const textareaStyle = {
         background: "none",
@@ -20,7 +20,7 @@ function MarkdownInput() {
                 <TextareaAutosize 
                 minRows={1}
                 style={textareaStyle}
-                className={`${!toggle ? light.text.className : dark.text.className } 
+                className={`${theme.text.className} 
                 textarea-input textarea-size is-size-3 title`} 
                 value={selected.title} 
                 onChange={handleTitleChange}/>
@@ -28,7 +28,7 @@ function MarkdownInput() {
                 style={textareaStyle}
                 minRows={1}
                 value={selected.content} onChange={handleContentChange}
-                className={`${!toggle ? light.text.className : dark.text.className} textarea-input textarea-size`}  />
+                className={`${theme.text.className} textarea-input textarea-size`}  />
         </div>
     )
 }
