@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { NotesContext } from '../../context/NotesProvider';
+import BackButton from '../buttons/BackButton';
 import DeleteNoteButton from '../buttons/DeleteNoteButton';
 import EditNoteButton from '../buttons/EditNoteButton';
 import HelpButtonAndModal from '../buttons/HelpButtonAndModal';
@@ -9,11 +10,14 @@ export default function EditorToolbar() {
     const { selected } = useContext(NotesContext);
 
     return (
-        <div className="is-flex is-flex-row is-justify-content-space-between mb-6 ">
+        <div id="options" className="is-flex is-flex-row is-justify-content-space-between">
             <div className="is-justify-content-flex-start">
-                <HelpButtonAndModal />
+                <BackButton />
             </div>
             <div className="field is-grouped is-justify-content-flex-end">
+                <p className="control">
+                    <HelpButtonAndModal />
+                </p>
                 <p className="control">
                     <EditNoteButton />
                 </p>
@@ -22,6 +26,5 @@ export default function EditorToolbar() {
                 </p>
             </div>
         </div>
-       
     )
 }

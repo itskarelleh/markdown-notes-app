@@ -22,7 +22,7 @@ function NotesProvider({ children }) {
 
             console.log("notes" + all);
         }
-    });
+    }, [notes]);
 
     useLiveQuery(async () => {
         const notesList = await db.notes.toArray();
@@ -81,7 +81,7 @@ function NotesProvider({ children }) {
         setSelected(prevState => ({ ...prevState, title: t, updated_at: dateFormatForNote }));
         
         setNotes(notes.map((note) => {
-            if(note.id === selected.id) return {...note, title: t, updated_at: dateFormatForNote};
+            if(note.id === selected.id) return {...note, title: t, updated_at: dateFormatForNote };
             return note;
         }));    
 
@@ -105,6 +105,9 @@ function NotesProvider({ children }) {
         }
     }
 
+    //used for the back button when editing a note and the user wants to return to the main menu
+    const clearSelected = async () => setSelected({});
+
     // async function deleteMultiple(ids) {
     //     db.notes.bulkDelete(ids);
     //     setNotes()
@@ -112,7 +115,7 @@ function NotesProvider({ children }) {
 
     return ( 
         <NotesContext.Provider value={{ notes, selected, handleContentChange, handleTitleChange, getNote, 
-        createNote, deleteNote }}>
+        createNote, deleteNote, clearSelected }}>
             {children}
         </NotesContext.Provider>
     )

@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { Button, Block, Heading } from 'react-bulma-components';
+import { Block, Heading } from 'react-bulma-components';
 import { NotesContext } from '../../context/NotesProvider';
 import { dark, light, ThemeContext } from '../../context/ThemeProvider';
-import Modal from '../bulma-components/Modal';
+import Modal from '../custom-bulma/Modal';
 
 const DeleteNoteButton = ({ id }) => {
     
@@ -12,37 +12,38 @@ const DeleteNoteButton = ({ id }) => {
     
     return (
         <>
-            <Button size="small" title={"Delete this note"} 
+            <button title={"Delete this note"} 
             onClick={() => setIsOpen(prev => !prev)} 
-            className="is-danger is-rounded">
+            className="button is-danger is-small is-rounded">
                 <ion-icon name="trash-bin-outline"></ion-icon>
-            </Button>
+            </button>
             <Modal onClose={() => setIsOpen(prev => !prev)} 
             open={isOpen}>
-                <div className={`box ${!toggle ? light.panel.className : dark.panel.className }`}>
-                <Button className="delete" 
+                <div className={`box ${toggle ? light.panel.className : dark.panel.className }`}>
+                <button className="delete" 
                     onClick={() => setIsOpen(prev => !prev)}
-                    aria-label="close"></Button>
-                    <Block>
-                        <Heading textColor='danger' className={!toggle ? light.text.className : dark.text.className }
+                    aria-label="close"></button>
+                    <div className="block">
+                        <Heading textColor='danger' className={toggle ? light.text.className : dark.text.className }
                         renderAs="h3">Deleting</Heading>
-                        <Heading className={!toggle ? light.text.className : dark.text.className } renderAs="h4">Are you sure you want to delete this note? </Heading>
-                    </Block>
+                        <Heading className={toggle ? light.text.className : dark.text.className } renderAs="h4">Are you sure you want to delete this note? </Heading>
+                    </div>
                     <div className={`field is-grouped is-justify-content-flex-end`}>
                         <p className="control">
-                            <Button onClick={() => { 
+                            <button onClick={() => { 
                                 deleteNote(id);
                                 setIsOpen(prev => !prev);
                             }} 
-                            className="is-success">
+                            className="is-success button">
                                 Yes
-                            </Button>
+                            </button>
                         </p>
                     
                         <p className="control">
-                            <Button onClick={() => setIsOpen(prev => !prev)}>
+                            <button 
+                            onClick={() => setIsOpen(prev => !prev)}>
                                 No
-                            </Button>
+                            </button>
                         </p>
                     </div>
                 </div>

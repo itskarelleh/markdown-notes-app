@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
 import CreateNoteButton from '../buttons/CreateNoteButton';
 import { Block, Heading } from 'react-bulma-components';
-import { ThemeContext, dark, light } from '../../context/ThemeProvider';
+import { ThemeContext } from '../../context/ThemeProvider';
 import { NotesContext } from '../../context/NotesProvider';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../../db';
 
 const NoteSummary = ({ data }) => {
 
-    const { toggle, theme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
     return (
         <>
@@ -31,10 +29,10 @@ const NoteSummary = ({ data }) => {
 const NotesList = () => {
 
     const { notes, getNote } = useContext(NotesContext);
-    const { toggle, theme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
     return (
-        <div id="notes-init" className={`m-0 p-4 ${theme.background.className} 
+        <div id="notes-init" className={`m-0 mt-4 p-4 ${theme.background.className} 
         is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center`}>
             <Block className={`${theme.panel.className}  
             is-flex is-align-self-center is-flex-direction-column p-4

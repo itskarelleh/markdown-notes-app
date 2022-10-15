@@ -108,7 +108,10 @@ const Images = () => (
         <div style={colWidth}>
             {images.content}
         </div>
-        <div style={colWidth} dangerouslySetInnerHTML={{ __html: rawMarkup(images.content) }} />
+        <div style={colWidth} 
+        dangerouslySetInnerHTML={{ 
+            __html: rawMarkup(images.content) 
+        }} />
         </SectionDiv>
         
     </MarkdownHelperPanelSection>
@@ -128,6 +131,9 @@ const Lists = () => (
 const Code = () => (
     <MarkdownHelperPanelSection title="Code">
         <SectionDiv>
+            <div>
+            `` use backticks to write code in the editor``
+            </div>
             <div dangerouslySetInnerHTML={{ __html: rawMarkup(code) }}/>
         </SectionDiv>
     </MarkdownHelperPanelSection>

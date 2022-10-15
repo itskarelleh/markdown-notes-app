@@ -1,5 +1,9 @@
 @import 'bulma/css/bulma.css';
 
+body {
+  overflow: hidden;
+}
+
 html, body, #root {
   height: 100%;
 }
@@ -7,6 +11,7 @@ html, body, #root {
 blockquote {
   color: black;
 }
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -30,12 +35,15 @@ blockquote {
 ::-webkit-input-placeholder { /* WebKit browsers */
   padding: 5px 0 0 5px;
 }
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+
+::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
   padding: 5px 0 0 5px;
 }
+
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
   padding: 5px 0 0 5px;
 }
+
 :-ms-input-placeholder { /* Internet Explorer 10+ */
   padding: 5px 0 0 5px;
 }

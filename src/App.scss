@@ -110,6 +110,7 @@
 
 .theme-toggle-btn {
     position: absolute;
+    top: 5px;
     right: 50px;
 }
 
@@ -147,4 +148,9 @@
 .date-timestamp {
     margin-bottom: 1rem;
     display: inline-block;
+}
+
+#editor-wrapper {
+    width: 75%;
+    margin: 6rem auto;
 }
