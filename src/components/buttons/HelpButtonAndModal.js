@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { Button, Block, Container } from 'react-bulma-components';
 import { ThemeContext, light, dark } from '../../context/ThemeProvider';
-import Modal from '../bulma-components/Modal';
+import Modal from '../custom-bulma/Modal';
 import { MarkdownHelperModal } from '../markdown-guide';
 
 export default function HelpButtonAndModal() {
@@ -13,20 +12,20 @@ export default function HelpButtonAndModal() {
 
     return (
         <>
-            <Button onClick={handleOpen}
-            color={toggle ? "light" : "dark"} title={"Help"} size="small" className="is-rounded">
+            <button onClick={handleOpen} title={"Help"}
+            className="is-rounded is-info is-small button">
                 <ion-icon name="help-outline"></ion-icon>
-            </Button>
+            </button>
             <Modal width={"75%"} open={isOpen} onClose={handleOpen}>
                 <header className={`modal-card-head 
-                ${!toggle ? light.text.className : dark.text.className }
-                ${!toggle ? light.panel.className : dark.panel.className}`}>
-                    <p className={`modal-card-title ${!toggle ? light.text.className : dark.text.className }`}>Help</p>
+                ${toggle ? light.text.className : dark.text.className }
+                ${toggle ? light.panel.className : dark.panel.className}`}>
+                    <p className={`modal-card-title ${toggle ? light.text.className : dark.text.className }`}>Help</p>
                     <button onClick={handleOpen} 
                     className="delete" aria-label='close'/>
                 </header>
-                <div className={`p-6 content-wrapper ${!toggle ? light.panel.className : dark.panel.className} 
-                ${!toggle ? light.text.className : dark.text.className}`}>
+                <div className={`p-6 content-wrapper ${toggle ? light.panel.className : dark.panel.className} 
+                ${toggle ? light.text.className : dark.text.className}`}>
                     <MarkdownHelperModal />
                 </div>
             </Modal>

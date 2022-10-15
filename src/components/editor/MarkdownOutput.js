@@ -7,26 +7,23 @@ import { rawMarkup } from "../../utils";
 export default function MarkdownOutput() {
 
     const { selected } = useContext(NotesContext);
-    const { toggle } = useContext(ThemeContext);
+    const { toggle, theme } = useContext(ThemeContext);
     const [ markup, setMarkup ] = useState("");
 
     useEffect(() => {
         setMarkup(rawMarkup(selected.content));
     }, [selected.content]);
-    
-    const toggleStyles = {
 
-    }
     return (
         <>
         <Content className="content-spacing">
-            <Heading className={!toggle ? light.text.className : dark.text.className }>
+            <Heading className={theme.text.className }>
                 {selected.title}
             </Heading>
-            {selected.updated_at  && <Block className={!toggle ? light.text.className : dark.text.className }>
+            {selected.updated_at  && <Block className={theme.text.className }>
                 {selected.updated_at}
             </Block>}
-            <Content className={`${!toggle ? light.text.className : dark.text.className} content-body`}
+            <Content className={`${theme.text.className} content-body`}
             dangerouslySetInnerHTML={{ __html: markup }}></Content>
         </Content> 
         </>

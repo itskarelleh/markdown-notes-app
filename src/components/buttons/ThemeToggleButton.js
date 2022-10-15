@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
-import { Button } from 'react-bulma-components';
-import { ThemeContext, light, dark } from '../../context/ThemeProvider';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 export default function ThemeToggleButton() {
 
-    const { toggle, toggleTheme } = useContext(ThemeContext);
+    const { toggle, theme, toggleTheme } = useContext(ThemeContext);
 
     return (
-        <Button style={{ border: 'none' }}
+        <button style={{ border: 'none', background: 'none' }}
         onClick={toggleTheme}
-        color={!toggle ? light.panel.style : dark.panel.style }>
+        className={`button ${theme.text.className}`}>
             {!toggle ? <ion-icon name="sunny-outline"></ion-icon> : <ion-icon name="moon-outline"></ion-icon>}
-        </Button>
+        </button>
     )
 }
