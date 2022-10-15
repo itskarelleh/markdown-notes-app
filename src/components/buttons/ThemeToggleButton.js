@@ -9,7 +9,7 @@ export default function ThemeToggleButton() {
         <button style={{ border: 'none', background: 'none' }}
         onClick={toggleTheme}
         className={`button ${theme.text.className}`}>
-            {!toggle ? <ion-icon name="sunny-outline"></ion-icon> : <ion-icon name="moon-outline"></ion-icon>}
+            {toggle ? <ion-icon name="sunny-outline"></ion-icon> : <ion-icon name="moon-outline"></ion-icon>}
         </button>
     )
 }

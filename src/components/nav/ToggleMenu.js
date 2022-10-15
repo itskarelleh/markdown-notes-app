@@ -2,13 +2,13 @@ import React, { useState, useContext } from 'react';
 import { Button, Menu } from 'react-bulma-components';
 import { NoteSummary } from '../notes';
 import { NotesContext } from '../../context/NotesProvider';
-import Modal from '../bulma-components/Modal';
+import Modal from '../custom-bulma/Modal';
 import CreateNoteButton from '../buttons/CreateNoteButton';
-import { ThemeContext, light, dark } from '../../context/ThemeProvider';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 export default function ToggleMenu() {
 
-    const { toggle, theme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     const { notes, getNote } = useContext(NotesContext);
     const [ isOpen, setIsOpen ] = useState(false);
 
