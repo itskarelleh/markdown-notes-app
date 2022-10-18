@@ -6,7 +6,7 @@ import { MarkdownHelperModal } from '../markdown-guide';
 export default function HelpButtonAndModal() {
 
     const { toggle } = useContext(ThemeContext);
-    const [ isOpen, setIsOpen ] = useState(true);
+    const [ isOpen, setIsOpen ] = useState(false);
 
     const handleOpen = () => setIsOpen(!isOpen);
 
@@ -18,9 +18,9 @@ export default function HelpButtonAndModal() {
             </button>
             <Modal width={"75%"} open={isOpen} onClose={handleOpen}>
                 <header className={`modal-card-head 
-                ${toggle ? light.text.className : dark.text.className }
-                ${toggle ? light.panel.className : dark.panel.className}`}>
-                    <p className={`modal-card-title ${toggle ? light.text.className : dark.text.className }`}>Help</p>
+                ${!toggle ? light.text.className : dark.text.className }
+                ${!toggle ? light.panel.className : dark.panel.className}`}>
+                    <p className={`modal-card-title ${!toggle ? light.text.className : dark.text.className }`}>Help</p>
                     <button onClick={handleOpen} 
                     className="delete" aria-label='close'/>
                 </header>
