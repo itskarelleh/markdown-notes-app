@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Content, Block, Heading } from 'react-bulma-components';
 import { NotesContext } from "../../context/NotesProvider";
-import { ThemeContext, light, dark } from "../../context/ThemeProvider";
+import { ThemeContext } from "../../context/ThemeProvider";
 import { rawMarkup } from "../../utils";
 
 export default function MarkdownOutput() {
 
     const { selected } = useContext(NotesContext);
-    const { toggle, theme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     const [ markup, setMarkup ] = useState("");
 
     useEffect(() => {

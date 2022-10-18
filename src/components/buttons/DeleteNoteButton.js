@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Block, Heading } from 'react-bulma-components';
+import { Heading } from 'react-bulma-components';
 import { NotesContext } from '../../context/NotesProvider';
 import { dark, light, ThemeContext } from '../../context/ThemeProvider';
 import Modal from '../custom-bulma/Modal';

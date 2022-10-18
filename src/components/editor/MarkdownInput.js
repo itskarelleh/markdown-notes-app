@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NotesContext } from '../../context/NotesProvider';
-import { ThemeContext, light, dark } from "../../context/ThemeProvider";
+import { ThemeContext } from "../../context/ThemeProvider";
 import TextareaAutosize from 'react-textarea-autosize';
 
 function MarkdownInput() {

@@ -16,7 +16,10 @@ const light = {
         className: 'has-text-dark',
         style: 'dark',
     },
-    textConstrast: 'white',
+    textConstrast: {
+        style: 'white',
+        className: 'has-text-white'
+    },
 };
 
 const dark = {
@@ -32,13 +35,19 @@ const dark = {
         className: 'has-text-white',
         style: 'light',
     },
-    textConstrast: 'white',
+    textConstrast: {
+        style: 'white',
+        className: 'has-text-white'
+    },
 };
 
 function ThemeProvider({ children }) {
     
     const [ toggle, setToggle ] = useState(JSON.parse(localStorage.getItem('darkmode') || false ));
-    const [ theme, setTheme ] = useState(light);
+    const [ theme, setTheme ] = useState(() => {
+        if(!toggle) return light;
+        else return dark;
+    });
 
     useEffect(() => {
         setToggle(JSON.parse(localStorage.getItem('darkmode')));
@@ -46,18 +55,20 @@ function ThemeProvider({ children }) {
 
     useEffect(() => {
         localStorage.setItem('darkmode', JSON.stringify(toggle));
-    }, [toggle, theme]);
+    }, [theme, toggle]);
+
+    useEffect(() => {
+        setTheme(() => {
+            if(!toggle){ 
+                return light;
+            } else {
+                return dark;
+            }
+        });
+    }, [toggle])
 
     function toggleTheme() {
-        setToggle(prev => !prev);
-
-        if(toggle === false) {
-            setTheme(light);
-        } 
-        
-        if(toggle === true) {
-            setTheme(dark);
-        }
+        setToggle(!toggle);
     };
 
     return (

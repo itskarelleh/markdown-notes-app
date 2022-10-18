@@ -18,14 +18,16 @@ export default function HelpButtonAndModal() {
             </button>
             <Modal width={"75%"} open={isOpen} onClose={handleOpen}>
                 <header className={`modal-card-head 
-                ${toggle ? light.text.className : dark.text.className }
-                ${toggle ? light.panel.className : dark.panel.className}`}>
-                    <p className={`modal-card-title ${toggle ? light.text.className : dark.text.className }`}>Help</p>
+                ${!toggle ? light.text.className : dark.text.className }
+                ${!toggle ? light.panel.className : dark.panel.className}`}>
+                    <p className={`modal-card-title ${!toggle ? light.text.className : dark.textConstrast.className }`}>
+                        Tips on How to write in Markdown
+                    </p>
                     <button onClick={handleOpen} 
                     className="delete" aria-label='close'/>
                 </header>
-                <div className={`p-6 content-wrapper ${toggle ? light.panel.className : dark.panel.className} 
-                ${toggle ? light.text.className : dark.text.className}`}>
+                <div className={`p-6 content-wrapper ${!toggle ? light.panel.className : dark.panel.className} 
+                ${!toggle ? light.text.className : dark.text.className}`}>
                     <MarkdownHelperModal />
                 </div>
             </Modal>
