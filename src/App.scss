@@ -1,5 +1,9 @@
 @charset "utf-8"; @import "~bulma/bulma.sass";
 
+strong {
+    color: inherit;
+}
+
 .App {
     height: 100%;
 }
@@ -153,4 +157,22 @@
 #editor-wrapper {
     width: 75%;
     margin: 6rem auto;
+}
+
+.modal-head-content{
+    width: 100%;
+    position: fixed;
+    background-color: inherit;
+}
+
+.modal-card-head {
+    position: fixed;
+    width: 75%;
+    z-index: 999;
+}
+
+#lists {
+    .block {
+        align-items: center;
+    }
 }

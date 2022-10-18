@@ -1,0 +1,35 @@
+#markdownguide-toc {
+    // width: 25%;
+    z-index: 998;
+    background-color: inherit;
+    color: inherit;
+    ul {
+        list-style: none;
+        position: fixed;
+        margin-top: 4rem;
+        height: 80%;
+        margin-left: 0.3rem;
+        li {
+            width: 65%;
+        }
+    }
+
+    a {
+        color: inherit;
+    }
+}
+
+#content-wrapper {
+    width: 65%;
+    margin: 0 auto;
+}
+
+#headings-and-paragraphs {
+    margin-top: 6rem;
+}
+
+#lists {
+    ul,ol {
+     padding: 0;   
+    }
+}

@@ -24,7 +24,7 @@ const light = {
 
 const dark = {
     background: {
-        className: 'has-background-black-bis',
+        className: 'has-background-black-ter',
         style: 'black'
     },
     panel: {

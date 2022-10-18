@@ -22,7 +22,7 @@ function EditorProvider({ children }) {
     }
 
     return (
-        <EditorContext.Provider value={{ isTextView,  isMobile, isEditing, 
+        <EditorContext.Provider value={{ isTextView,  isMobile, isEditing, setIsEditing, 
         toggleTextView, toggleMobile, toggleEditing }}>
             {children}
         </EditorContext.Provider>

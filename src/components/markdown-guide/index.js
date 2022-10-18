@@ -1,101 +1,152 @@
 import React from 'react';
+import "./markdown-guide.scss";
 import { Block, Content, Heading } from 'react-bulma-components';
 import { headingsAndParagraphs, emphasis, lists, 
-    images, code, blockQuotes, taskLists } from './panel-content';
+    images, code, blockQuotes } from './panel-content';
 import { rawMarkup } from '../../utils';
+import { useContext } from 'react';
+import { ThemeContext, dark } from '../../context/ThemeProvider';
 
 const colWidth = {
-    minWidth: "35%"
+    minWidth: "50%"
 };
 
-const SectionDiv = ({ children, 
-    subtitle: label, isFlexRow,
-    justifyContent }) => (
-    <Block className={`is-flex ${isFlexRow ? `is-flex-direction-row` : `is-flex-direction-column`} 
-    ${justifyContent ? justifyContent : `is-justify-content-space-evenly`}`}>
-        {label && <Heading renderAs="h3" className="is-size-4">{label}</Heading>}
-        {children}
-    </Block>
-)
+const whiteSpaceStyle = { 
+    whiteSpace: "pre-wrap"
+};
 
-const MarkdownHelperPanelSection = ({ title, children }) => (
-    <Block className="mx-4">
-        <h2 className="subtitle has-text-centered">{title}</h2>
+const tableOfContents = [
+    {label: "Headings and Paragraphs", target: "#headings-and-paragraphs"},
+    {label: "Emphasis", target: "#emphasis"},
+    {label: "Lists", target: "#lists"},
+    {label: "Block Quotes", target: "#block-quotes"},
+    {label: "Images", target: "#images"},
+    {label: "Code", target: "#code"},
+]
+
+const MarkdownAndResultsHeading = () => {
+    return (
+        <div className="is-flex is-flex-direction-row is-justify-content-center" style={{ borderBottom: '1px solid #CCC' }}>
+            <h3 style={{ width: '50%' }} className="has-text-right mr-3">Markdown</h3>
+            <h3 style={{ width: '50%' }} className="has-text-left">Result</h3>
+        </div>
+    )
+}
+
+const SectionDiv = ({ children, subtitle: label, isFlexRow, justifyContent }) => (
+    <Block className={`is-flex ${isFlexRow ? `is-flex-direction-row` : `is-flex-direction-column`} 
+    ${justifyContent ? justifyContent : `is-justify-content-center`}`}>
+        {label && <Heading renderAs="h3" className="is-size-4">{label}</Heading>}
         {children}
     </Block>
 );
 
+const MarkdownHelperPanelSection = ({ title, id, children }) => (
+    <div className="block mx-4" id={id}>
+        <h2 className="subtitle has-text-centered">{title}</h2>
+        {children}
+    </div>
+);
 
-function MarkdownHelperModal() {
+function MarkdownGuideModal() {
+
+    const { toggle } = useContext(ThemeContext);
 
     return (
+        <>
         <Content style={{ fontSize: "0.7rem", width: "100%" }}>
-            <Block className="is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-center">
-                <HeadingsAndParagraphs />
-                <Emphasis />
-                <Lists />
-                <TaskLists />
-                <BlockQuotes />
-                <Images />
-                <Code />
-            </Block>
+            <div className="columns is-mobile">
+            <section id="markdownguide-toc" className="box column is-hidden-mobile is-one-quarter">
+                    <ul className="is-flex-direction-column is-flex is-justify-content-space-evenly">
+                        {tableOfContents && tableOfContents.map((item, index) => (
+                        <li key={index}>
+                            <a href={item.target}>{item.label}</a>
+                        </li>
+                        ))}
+                    </ul>
+                </section>
+                <section id="markdown-guide-content" className={`column is-full-mobile is-three-quarters ${!toggle ? "has-background-white-ter" : dark.background.className}`}>
+                    <div id="content-wrapper" className="block is-flex is-flex-direction-column is-flex-wrap-wrap is-justify-content-center">
+                        <HeadingsAndParagraphs />
+                        <Emphasis />
+                        <Lists />
+                        <BlockQuotes />
+                        <Images />
+                        <Code />
+                    </div>
+                </section>
+            </div>
         </Content>
+        </>
     )
 }
 
-
 const HeadingsAndParagraphs = () => (
-    <MarkdownHelperPanelSection title={"Headings and Paragraphs"}>
+    <MarkdownHelperPanelSection id="headings-and-paragraphs" title={"Headings and Paragraphs"}>
+        <MarkdownAndResultsHeading />
         {headingsAndParagraphs && headingsAndParagraphs
         .slice(0, headingsAndParagraphs.length - 1)
         .map((sample, index) => (
-            <SectionDiv key={index}>
-                <div style={colWidth} 
-                className="has-text-right"
+            <SectionDiv key={index} isFlexRow justifyContent="is-justify-content-center">
+                <div className="has-text-right mr-3">{sample}</div>
+                <div className="has-text-left"
                 dangerouslySetInnerHTML={{ __html: rawMarkup(sample) }}></div>
-                <div style={colWidth}>{sample}</div>
             </SectionDiv>
         ))}
-            <SectionDiv>
-                <div style={colWidth} 
-                className="has-text-right"
-                dangerouslySetInnerHTML={
-                    { __html: rawMarkup(headingsAndParagraphs[headingsAndParagraphs.length-1]) 
-                    }}>
-                </div>
-                <div style={colWidth}>
-                   No special characters need
-                   <br/>
-                   Just start typing 👍
-                </div>
-            </SectionDiv>
+        <SectionDiv key={headingsAndParagraphs.length} isFlexRow justifyContent="is-justify-content-center">
+            <div style={colWidth} className="has-text-right mr-3">
+                    {headingsAndParagraphs[headingsAndParagraphs.length - 1]}
+            </div>
+            <div style={colWidth}>
+                No special characters need
+                <br/>
+                Just start typing 👍
+            </div>
+        </SectionDiv>
     </MarkdownHelperPanelSection>
 );
 
 const Emphasis = () => (
-    <MarkdownHelperPanelSection title={"Emphasis"}>
+    <MarkdownHelperPanelSection id="emphasis" title={"Emphasis"}>
+        <MarkdownAndResultsHeading />
         {emphasis && emphasis.map((sample, index) => (
-            <SectionDiv key={index}>
-                <div style={colWidth} 
-                className="has-text-right" 
+            <SectionDiv key={index} isFlexRow>
+                <div className="has-text-right mr-3">{sample}</div>
+                <div
+                className="has-text-left" 
                 dangerouslySetInnerHTML={{ __html: rawMarkup(sample) }}></div>
-                <div style={colWidth}>{sample}</div>
             </SectionDiv>
+        ))}
+    </MarkdownHelperPanelSection>
+);
+
+const Lists = () => (
+    <MarkdownHelperPanelSection id="lists" title={"Lists"}>
+        <MarkdownAndResultsHeading />
+        {lists.map((sample, index) => (
+            <>
+            <h6>{sample.subtitle}</h6>
+            <SectionDiv key={index} isFlexRow>
+                <div style={whiteSpaceStyle}>{sample.content}</div>
+                <div style={whiteSpaceStyle} dangerouslySetInnerHTML={{ __html: rawMarkup(sample.content)}}></div>
+            </SectionDiv>
+            </>
         ))}
     </MarkdownHelperPanelSection>
 );
 
 const BlockQuotes = () => (
-    <MarkdownHelperPanelSection title={"Blockquotes"}>
+    <MarkdownHelperPanelSection id="block-quotes" title={"Blockquotes"}>
         {blockQuotes.map((blockQuote) => (
             <SectionDiv>
                 <div>
                     <h6>{blockQuote.label}</h6>
                 </div>
                 <div>
+                    <div><h6>Markdown:</h6> {blockQuote.content}</div>
+                    <br/>
                     <div dangerouslySetInnerHTML={{ __html: rawMarkup(blockQuote.content)}}>
                     </div>
-                    <div>{blockQuote.content}</div>
                 </div>
             </SectionDiv>
         ))}
@@ -103,8 +154,8 @@ const BlockQuotes = () => (
 );
 
 const Images = () => (
-    <MarkdownHelperPanelSection title={"Images"}>
-        <SectionDiv subtitle={images.title}>
+    <MarkdownHelperPanelSection id="images" title={"Images"}>
+        <SectionDiv subtitle={images.title} isFlexRow>
         <div style={colWidth}>
             {images.content}
         </div>
@@ -117,38 +168,18 @@ const Images = () => (
     </MarkdownHelperPanelSection>
 );
 
-const Lists = () => (
-    <MarkdownHelperPanelSection title={"Lists"}>
-        {lists.map((sample, index) => (
-            <SectionDiv key={index} title={sample.subtitle}>
-                <div dangerouslySetInnerHTML={{ __html: rawMarkup(sample.content)}}></div>
-                <div style={{ whiteSpace: "pre-wrap"}}>{sample.content}</div>
-            </SectionDiv>
-        ))}
-    </MarkdownHelperPanelSection>
-);
-
 const Code = () => (
-    <MarkdownHelperPanelSection title="Code">
-        <SectionDiv>
-            <div>
-            `` use backticks to write code in the editor``
+    <MarkdownHelperPanelSection id="code" title="Code">
+        <MarkdownAndResultsHeading />
+        <SectionDiv isFlexRow>
+            <div style={whiteSpaceStyle}>
+            {code}
             </div>
-            <div dangerouslySetInnerHTML={{ __html: rawMarkup(code) }}/>
+            <div 
+            dangerouslySetInnerHTML={{ __html: rawMarkup(code) }}/>
         </SectionDiv>
     </MarkdownHelperPanelSection>
 );
 
-const TaskLists = () => (
-    <MarkdownHelperPanelSection title="Task Lists">
-            {taskLists.map((sample, index) => (
-                <SectionDiv key={index}>
-                <div dangerouslySetInnerHTML={{ __html: rawMarkup(sample)}}></div>
-                <div style={{ whiteSpace: "pre-wrap"}}>{sample}</div>
-            </SectionDiv>
-            ))}
-    </MarkdownHelperPanelSection>
-)
 
-
-export { MarkdownHelperModal, MarkdownHelperPanelSection }
+export { MarkdownGuideModal as MarkdownHelperModal, MarkdownHelperPanelSection }
