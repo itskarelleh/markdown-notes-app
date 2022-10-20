@@ -24,6 +24,10 @@ function NotesProvider({ children }) {
         }
     }, [notes]);
 
+    useEffect(() => {
+        db.notes.put(selected);
+    }, [selected]);
+
     useLiveQuery(async () => {
         const notesList = await db.notes.toArray();
 
@@ -59,36 +63,22 @@ function NotesProvider({ children }) {
             bulmaToast.toast({ message: err, type: 'is-danger'});
         }
     }
-   
 
-    //update
-    async function handleContentChange(e) {
-        var c = e.target.value;
 
-        setSelected(prevState => ({ ...prevState, content: c, updated_at: dateFormatForNote }));
+    function updateNote(e) {
+        // try {
+            setSelected(prevState => ({ ...prevState, [e.target.id]: e.target.value, updated_at: dateFormatForNote }));
         
-        setNotes(notes.map((note) => {
-            if(note.id === selected.id) return {...note, content: c, updated_at: dateFormatForNote};
-            return note;
-        }));    
-
-        await db.notes.put(selected);
-    } 
-
-    async function handleTitleChange(e) {
-        var t = e.target.value;
-
-        setSelected(prevState => ({ ...prevState, title: t, updated_at: dateFormatForNote }));
-        
-        setNotes(notes.map((note) => {
-            if(note.id === selected.id) return {...note, title: t, updated_at: dateFormatForNote };
-            return note;
-        }));    
-
-        await db.notes.put(selected);
-
-    } 
-    
+            setNotes(notes.map((note) => {
+                if(note.id === selected.id) return {...note, [e.target.id]: e.target.value, updated_at: dateFormatForNote};
+                return note;
+            }));
+        // } catch(err) {
+            // console.error(err);
+        // } finally {
+            // bulmaToast.toast({ type: "is-success", message: "Updated!" })
+        // }
+    }
     //delete
     async function deleteNote(id) {
 
@@ -114,7 +104,7 @@ function NotesProvider({ children }) {
     // }
 
     return ( 
-        <NotesContext.Provider value={{ notes, selected, handleContentChange, handleTitleChange, getNote, 
+        <NotesContext.Provider value={{ notes, selected, updateNote, getNote, 
         createNote, deleteNote, clearSelected }}>
             {children}
         </NotesContext.Provider>
