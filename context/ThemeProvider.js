@@ -1,0 +1,86 @@
+import React, { useState, useEffect } from 'react';
+
+const ThemeContext = React.createContext(false);
+
+const light = {
+    background: {
+        classStyle: 'has-background-grey-lighter',
+        style: 'light'
+    },
+    button: 'white',
+    panel: {
+        style: 'white',
+        classStyle: 'has-background-white'
+    },
+    text: {
+        classStyle: 'has-text-dark',
+        style: 'dark',
+    },
+    textConstrast: {
+        style: 'white',
+        classStyle: 'has-text-white'
+    },
+};
+
+const dark = {
+    background: {
+        classStyle: 'has-background-black-ter',
+        style: 'black'
+    },
+    panel: {
+        style: 'dark',
+        classStyle: 'has-background-grey-darker'
+    },
+    text: {
+        classStyle: 'has-text-white',
+        style: 'light',
+    },
+    textConstrast: {
+        style: 'white',
+        classStyle: 'has-text-white'
+    },
+};
+
+function ThemeProvider({ children }) {
+    
+    const [ toggle, setToggle ] = useState(() => {
+        if(typeof window !== "undefined") {
+            JSON.parse(localStorage.getItem('darkmode') || false);
+        }
+    });
+    
+    const [ theme, setTheme ] = useState(() => {
+        if(!toggle) return light;
+        else return dark;
+    });
+
+    useEffect(() => {
+        setToggle(JSON.parse(localStorage.getItem('darkmode')));
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('darkmode', JSON.stringify(toggle));
+    }, [theme, toggle]);
+
+    useEffect(() => {
+        setTheme(() => {
+            if(!toggle){ 
+                return light;
+            } else {
+                return dark;
+            }
+        });
+    }, [toggle])
+
+    function toggleTheme() {
+        setToggle(!toggle);
+    };
+
+    return (
+        <ThemeContext.Provider value={{ toggle, theme, toggleTheme }}>
+            {children}
+        </ThemeContext.Provider>
+    );
+};
+
+export { ThemeProvider, ThemeContext, light, dark };
