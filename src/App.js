@@ -14,7 +14,8 @@ function App() {
   return (
     <NotesProvider>
       <ThemeProvider>
-        <div className={`App container p-0 mx-0 is-fullhd is-widescreen is-fluid ${toggle ? light.background.className : dark.background.className}`}>
+        <div
+          className={`App container p-0 mx-0 is-fullhd is-widescreen is-fluid ${toggle ? light.background.className : dark.background.className}`}>
           <EditorProvider>
               <Navigation/>
               <Editor />

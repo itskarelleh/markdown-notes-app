@@ -12,6 +12,7 @@
     "dexie": "^3.2.2",
     "dexie-react-hooks": "^1.1.1",
     "dompurify": "^2.3.10",
+    "framer-motion": "^7.6.2",
     "jsdom": "^20.0.0",
     "marked": "^4.0.18",
     "react": "^18.2.0",
