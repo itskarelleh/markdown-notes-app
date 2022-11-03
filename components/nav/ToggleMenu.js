@@ -3,7 +3,7 @@ import { Button, Menu } from "react-bulma-components";
 import { NoteSummary } from "../notes";
 import { NotesContext } from "../../context/NotesProvider";
 import Modal from "../custom-bulma/Modal";
-import CreateNoteButton from "../buttons/CreateNoteButton";
+import CreateNoteButton from "../inputs/CreateNoteButton";
 import { ThemeContext } from "@/context/ThemeProvider";
 import { UserContext } from "@/context/UserProvider";
 

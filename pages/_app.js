@@ -10,6 +10,7 @@ import Navigation from "@/components/nav/Navigation";
 import { NotesProvider } from "../context/NotesProvider";
 
 function MyApp({ Component, pageProps }) {
+  
   return (
     <>
       <Head>

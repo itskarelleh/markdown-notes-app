@@ -1,11 +1,23 @@
 @charset "utf-8"; @import "~bulma/bulma.sass";
 
+// $themes: (
+//     light: (
+
+//     ),
+//     dark: (
+
+//     ),
+// );
+
 strong {
     color: inherit;
 }
 
+.form-1-2 {
+ width: 50%;
+}
 .App {
-    height: 100%;
+    min-height: 100vh;
 }
 
 #notes-init {
@@ -118,6 +130,11 @@ strong {
     right: 50px;
 }
 
+.nav-end {
+    position: absolute;
+    top: 5px;
+    right: 50px;
+}
 .modal-menu {
     overflow-y: scroll;
 }

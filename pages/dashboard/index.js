@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-
+import { NotesList } from ''
 export default function Dashboard() {
 
     return (
         <>
-            <h1>The Dashboard</h1>
+            <NotesList />
         </>
     )
 }

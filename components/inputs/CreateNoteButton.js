@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { Button } from "react-bulma-components";
 import { NotesContext } from "@/context/NotesProvider";
 
-const CreateNoteButton = ({ label, justifyContent }) => {
+const CreateNoteButton = ({ label, justifyContent, postType }) => {
+  
   const { createNote } = useContext(NotesContext);
-
+  
   const justify = justifyContent ? justifyContent : "flex-start";
 
   return (

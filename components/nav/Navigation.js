@@ -1,14 +1,38 @@
 import React, { useContext } from "react";
 import ToggleMenu from "./ToggleMenu";
-import ThemeToggleButton from "../buttons/ThemeToggleButton";
+import ThemeToggleButton from "../inputs/ThemeToggleButton";
 import { ThemeContext } from "@/context/ThemeProvider";
 import Link from "next/link";
 import { UserContext } from "@/context/UserProvider";
+import UserAvatar from "./UserAvatar";
 
 export default function Navigation() {
   const { theme } = useContext(ThemeContext);
+
   const { userAccount, userProfile } = useContext(UserContext);
 
+  const MenuRightNoAuth = () => (
+    <div className="nav-end navbar-end">
+      <ul className="navbar-item">
+        <li className="mr-3" style={{ display: "inline" }}>
+          <Link className="navbar-link" href="/signin">
+            Sign In
+          </Link>
+        </li>
+        <li style={{ display: "inline" }}>
+          <Link className="navbar-link" href="/signup">
+            Sign Up
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+
+  const MenuRightUserAuth = () => (
+    <div>
+      <UserAvatar />
+    </div>
+  );
   return (
     <nav
       role="navigation"
@@ -32,10 +56,15 @@ export default function Navigation() {
             </h1>
           </Link>
         </div>
-        <div className="brand-menu-bg"></div>
-        <div className="theme-toggle-btn">
+        {/* {userProfile !== null || Object.keys(userProfile) >= 1 ? (
+          <MenuRightUserAuth />
+        ) : ( */}
+        <MenuRightNoAuth />
+        {/* )} */}
+        {/*TODO: add ThemeToggleButton will either be under settings or the toggle menu component */}
+        {/* <div className="theme-toggle-btn">
           <ThemeToggleButton />
-        </div>
+        </div> */}
       </div>
     </nav>
   );

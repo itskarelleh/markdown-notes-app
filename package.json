@@ -10,10 +10,11 @@
     "bulma": "^0.9.4",
     "bulma-switch": "^2.0.4",
     "bulma-toast": "^2.4.1",
+    "cookies-next": "^2.1.1",
     "dexie": "^3.2.2",
     "dexie-react-hooks": "^1.1.1",
     "dompurify": "^2.3.10",
-    "framer-motion": "^7.6.2",
+    "framer-motion": "^7.6.4",
     "jsdom": "^20.0.0",
     "marked": "^4.0.18",
     "next": "^12.3.1",
@@ -25,7 +26,8 @@
     "react-textarea-autosize": "^8.3.4",
     "sass": "^1.55.0",
     "uuid": "^8.3.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "dev": "next dev",
