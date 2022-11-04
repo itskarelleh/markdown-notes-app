@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { NotesContext } from "@/context/NotesProvider";
-import BackButton from "../inputs/BackButton";
-import DeleteNoteButton from "../inputs/DeleteNoteButton";
-import EditNoteButton from "../inputs/EditNoteButton";
-import HelpButtonAndModal from "../inputs/HelpButtonAndModal";
+import BackButton from "../inputs/buttonsbuttons/buttons/buttons/buttons/BackButton";
+import DeleteNoteButton from "../inputs/buttonsbuttons/DeleteNoteButton";
+import EditNoteButton from "../inputs/buttonsbuttons/EditNoteButton";
+import HelpButtonAndModal from "../inputs/buttonsbuttons/HelpButtonAndModal";
 
 export default function EditorToolbar() {
   const { selected } = useContext(NotesContext);
@@ -11,7 +11,7 @@ export default function EditorToolbar() {
   return (
     <div
       id="options"
-      className="is-flex is-flex-row is-justify-content-space-between"
+      className="flex flex-row is-justify-content-space-between"
     >
       <div className="is-justify-content-flex-start">
         <BackButton />

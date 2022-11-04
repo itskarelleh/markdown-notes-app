@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import * as bulmaToast from "bulma-toast";
 import { dateFormatForNote } from "../utils";
 import { db, transferLocalStorageToIndexedDB } from "@/db/indexedDB";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -71,7 +70,6 @@ function NotesProvider({ children }) {
       setSelected(newNote);
     } catch (err) {
       console.error({ message: err });
-      bulmaToast.toast({ message: err, type: "is-danger" });
     }
   }
 
@@ -97,7 +95,6 @@ function NotesProvider({ children }) {
     // } catch(err) {
     // console.error(err);
     // } finally {
-    // bulmaToast.toast({ type: "is-success", message: "Updated!" })
     // }
   }
   //delete
@@ -109,9 +106,7 @@ function NotesProvider({ children }) {
       setNotes(newNotes);
       await db.notes2.delete(id);
     } catch (err) {
-      bulmaToast.toast({ message: err, type: "is-danger" });
-    } finally {
-      bulmaToast.toast({ message: "Note deleted", type: "is-success" });
+      console.log(err);
     }
   }
 

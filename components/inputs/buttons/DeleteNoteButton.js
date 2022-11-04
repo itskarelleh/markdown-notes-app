@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { Heading } from 'react-bulma-components';
 import { NotesContext } from '@/context/NotesProvider';
 import { dark, light, ThemeContext } from '@/context/ThemeProvider';
 import Modal from '../custom-bulma/Modal';
@@ -24,9 +23,8 @@ const DeleteNoteButton = ({ id }) => {
                     onClick={() => setIsOpen(prev => !prev)}
                     aria-label="close"></button>
                     <div className="block">
-                        <Heading textColor='danger' className={toggle ? light.text.classStyle : dark.text.classStyle }
-                        renderAs="h3">Deleting</Heading>
-                        <Heading className={toggle ? light.text.classStyle : dark.text.classStyle } renderAs="h4">Are you sure you want to delete this note? </Heading>
+                        <h1 textColor='danger' className={toggle ? light.text.classStyle : dark.text.classStyle }>Deleting</h1>
+                        <h2 className={toggle ? light.text.classStyle : dark.text.classStyle }>Are you sure you want to delete this note? </h2>
                     </div>
                     <div className={`field is-grouped is-justify-content-flex-end`}>
                         <p className="control">

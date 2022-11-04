@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Input from "./Input";
 
 export default function PasswordInput({ ...props }) {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -8,9 +9,9 @@ export default function PasswordInput({ ...props }) {
   };
 
   return (
-    <div className="is-flex is-flex-direction-row">
-      <input
-        className="input"
+    <div className="flex flex-row">
+      <Input 
+        className="input w-full"
         type={passwordShown ? "text" : "password"}
         {...props}
       />

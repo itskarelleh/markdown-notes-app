@@ -1,13 +1,17 @@
 import React from "react";
 import BaseLayout from "@/components/BaseLayout";
-import Form from "@/components/inputs/Form";
-import InputField from "@/components/inputs/InputField";
-import PasswordInput from "../../components/inputs/PasswordInput";
+import Form from "@/components/inputs/form/Form";
+import InputField from "@/components/inputs/form/InputField";
+import Input from "@/components/inputs/form/Input";
+import PasswordInput from "@/components/inputs/form/PasswordInput";
 import * as yup from "yup";
-
+import FormHeading from "@/components/inputs/form/FormHeading";
+import Checkbox from "@/components/inputs/form/Checkbox";
+import FormWrapper from "@/components/inputs/form/FormWrapper";
 export default function SignUp() {
   let schema = yup.object().shape({
     email: yup.string().required(),
+    phone: yup.string(),
     password: yup.string().required(),
     joinedAt: yup.date().default(function () {
       return new Date();
@@ -17,6 +21,7 @@ export default function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    //first check that password and password confirm are equal
     // schema.isValid({
     //   email: ,
     //   password:
@@ -25,18 +30,11 @@ export default function SignUp() {
 
   return (
     <BaseLayout style={{ height: "100vh", overflow: "hidden", scroll: "none" }}>
-      <div className="pt-6 container">
-        <Form
-          onSubmit={handleSubmit}
-          formWidthClassname="form-1-2"
-          // action={`${process.env.SERVER_URL}${process.env.API_ENDPOINT}/accounts/signup`}
-          // method="post"
-        >
-          <div className="field">
-            <h1 className="is-size-1 is-text-center">Sign Up</h1>
-          </div>
+      <FormWrapper>
+        <Form onSubmit={handleSubmit} className="w-1/2 mx-auto">
+          <FormHeading title="Sign Up" />
           <InputField labelName="Email">
-            <input className="input" type="email" name="accountEmail" />
+            <Input type="email" name="accountEmail" />
           </InputField>
           {/* <InputField labelName="Phone" labelFor="accountPhone">
             <input className="input" type="phone" name="accountPhone" />
@@ -48,17 +46,30 @@ export default function SignUp() {
             labelFor="accountConfirmPassword"
             labelName="Confirm Password"
           >
-            <PasswordInput name="accountConfirmPassword" />
+            <PasswordInput
+              minLength="8"
+              maxLength="20"
+              name="accountConfirmPassword"
+            />
           </InputField>
-          <div className="field">
-            <div className="control">
-              <button className="button" type="submit">
-                Sign Up
-              </button>
-            </div>
-          </div>
+          <InputField classname="flex-row">
+            <Checkbox
+              required
+              helper={
+                <>
+                  I agree to the <a href="#">Terms of Service</a>
+                </>
+              }
+            />
+            {/* <p>I agree to the <a href="#">Terms of Service</a></p> */}
+          </InputField>
+          <InputField justifyContent="justify-end">
+            <button className="bg-white text-black p-2" type="submit">
+              Sign Up
+            </button>
+          </InputField>
         </Form>
-      </div>
+      </FormWrapper>
     </BaseLayout>
   );
 }

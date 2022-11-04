@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import CreateNoteButton from "../inputs/CreateNoteButton";
-import { Block, Heading } from "react-bulma-components";
 import { ThemeContext } from "../../context/ThemeProvider";
 import { NotesContext } from "../../context/NotesProvider";
 
@@ -9,16 +8,15 @@ const NoteSummary = ({ data }) => {
 
   return (
     <>
-      <Block key={`note-${data.id}`}>
-        <Block>
-          <Heading
-            renderAs="h2"
+      <div key={`note-${data.id}`}>
+        <div>
+          <h2
             style={{ display: "inline" }}
-            className={`note-summary-title is-size-6 ${theme.text.classStyle}`}
+            className={`note-summary-title text-sm ${theme.text.classStyle}`}
           >
             {data.title}
-          </Heading>
-        </Block>
+          </h2>
+        </div>
 
         <small
           style={{ marginBottom: "1rem" }}
@@ -26,7 +24,7 @@ const NoteSummary = ({ data }) => {
         >
           {data.created_at}
         </small>
-      </Block>
+      </div>
     </>
   );
 };
@@ -39,24 +37,22 @@ const NotesList = () => {
     <div
       id="notes-init"
       className={`m-0 mt-4 p-4 ${theme.background.classStyle} 
-        is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center`}
+        is-widescreen flex-col is-justify-content-center is-align-content-center`}
     >
-      <Block
+      <div
         className={`${theme.panel.classStyle}  
-            is-flex is-align-self-center is-flex-direction-column p-4
+            flex is-align-self-center flex-col p-4
             is-justify-content-center is-align-items-center`}
       >
         <div
           id="create-btn-init"
           style={{ width: "100%" }}
-          className="is-flex-direction-row is-justify-content-flex-end mr-5"
+          className="flex-row is-justify-content-flex-end mr-5"
         >
           <CreateNoteButton justifyContent={"flex-end"} />
         </div>
-        <Heading renderAs="h1" className={`${theme.text.classStyle} `}>
-          Welcome
-        </Heading>
-        <Block
+        <h1 className={`${theme.text.classStyle} `}>Welcome</h1>
+        <div
           style={{ width: "100%", padding: "0rem 2rem", overflowY: "scroll" }}
         >
           <ul className="note-summaries">
@@ -71,8 +67,8 @@ const NotesList = () => {
                 </li>
               ))}
           </ul>
-        </Block>
-      </Block>
+        </div>
+      </div>
     </div>
   );
 };
@@ -84,19 +80,15 @@ const NoNotesDetected = () => {
     <div
       id="notes-init"
       className={`m-0 p-4 ${theme.background.classStyle} } 
-    is-widescreen is-flex-direction-column is-justify-content-center is-align-content-center`}
+    is-widescreen flex-col is-justify-content-center is-align-content-center`}
       style={{ height: "100%" }}
     >
-      <Block className="is-flex is-align-self-center is-flex-direction-column is-justify-content-center is-align-items-center">
-        <Heading
-          renderAs="h2"
-          className={`${theme.text.classStyle}`}
-          weight="semibold"
-        >
+      <div className="flex is-align-self-center flex-col is-justify-content-center is-align-items-center">
+        <h2 className={`${theme.text.classStyle}`} weight="semibold">
           No Notes Yet.
-        </Heading>
+        </h2>
         <CreateNoteButton />
-      </Block>
+      </div>
     </div>
   );
 };

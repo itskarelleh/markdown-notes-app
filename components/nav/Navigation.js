@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import ToggleMenu from "./ToggleMenu";
-import ThemeToggleButton from "../inputs/ThemeToggleButton";
 import { ThemeContext } from "@/context/ThemeProvider";
 import Link from "next/link";
 import { UserContext } from "@/context/UserProvider";
@@ -8,7 +7,6 @@ import UserAvatar from "./UserAvatar";
 
 export default function Navigation() {
   const { theme } = useContext(ThemeContext);
-
   const { userAccount, userProfile } = useContext(UserContext);
 
   const MenuRightNoAuth = () => (
@@ -37,23 +35,19 @@ export default function Navigation() {
     <nav
       role="navigation"
       aria-label="main navigation"
-      className={`navbar ${theme.background.classStyle} is-fixed-top`}
+      className={`navbar is-fixed-top`}
     >
       <div
-        className="block ml-2 is-flex-direction-row is-align-items-center"
+        className="block ml-2 flex-row is-align-items-center"
         style={{ height: "100%" }}
       >
         <ToggleMenu />
         <div
-          style={{ width: "12rem", paddingLeft: "1.25rem" }}
-          className="is-flex nav-branding navbar-brand is-flex-direction-column m-0 is-justify-content-center"
+          // style={{ width: "12rem", paddingLeft: "1.25rem" }}
+          className="flex nav-branding navbar-brand flex-col m-0 is-justify-content-center"
         >
           <Link classsName="navbar-item" href="/">
-            <h1
-              className={`my-0 is-size-5-mobile has-text-weight-bold is-size-5 ${theme.text.classStyle}`}
-            >
-              Markdown Notes
-            </h1>
+            <h1 className={`my-0 text-2xl text-bold`}>Markdown Notes</h1>
           </Link>
         </div>
         {/* {userProfile !== null || Object.keys(userProfile) >= 1 ? (

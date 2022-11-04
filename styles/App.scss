@@ -1,14 +1,14 @@
-@charset "utf-8"; @import "~bulma/bulma.sass";
+body > *{
+}
 
-// $themes: (
-//     light: (
+body.dark > * {
+}
 
-//     ),
-//     dark: (
+.navbar {
+}
 
-//     ),
-// );
-
+.navbar .dark {
+}
 strong {
     color: inherit;
 }
@@ -16,6 +16,8 @@ strong {
 .form-1-2 {
  width: 50%;
 }
+
+
 .App {
     min-height: 100vh;
 }

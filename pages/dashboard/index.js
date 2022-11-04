@@ -1,10 +1,18 @@
-import React, { useContext } from 'react';
-import { NotesList } from ''
-export default function Dashboard() {
+import React, { useContext } from "react";
+import BaseLayout from "@/components/BaseLayout";
 
-    return (
-        <>
-            <NotesList />
-        </>
-    )
+export default function Dashboard() {
+  return (
+    <BaseLayout>
+          <main>
+          <section>
+                  
+            </section>
+              <aside>
+                  
+              </aside>
+              
+      </main>
+    </BaseLayout>
+  );
 }
