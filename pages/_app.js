@@ -8,7 +8,8 @@ import "@/styles/index.scss";
 import { ThemeProvider } from "next-themes";
 import { UserProvider } from "@/context/UserProvider";
 import Navigation from "@/components/nav/Navigation";
-import { NotesProvider } from "../context/NotesProvider";
+import { PostsProvider } from "@/context/PostsProvider";
+import BaseLayout from "@/components/BaseLayout";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -18,10 +19,12 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <UserProvider>
         <ThemeProvider attribute="class">
-          <NotesProvider>
-            <Navigation />
-            <Component {...pageProps} />
-          </NotesProvider>
+          <PostsProvider>
+            <BaseLayout>
+              <Navigation />
+              <Component {...pageProps} />
+            </BaseLayout>
+          </PostsProvider>
         </ThemeProvider>
       </UserProvider>
     </>

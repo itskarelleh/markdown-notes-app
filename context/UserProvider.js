@@ -6,24 +6,24 @@ function UserProvider({ children }) {
   const [userProfile, setUserProfile] = useState({});
   const [userAccount, setUserAccount] = useState({});
 
-  //TODO: check cookies for user
-  // useEffect(() => {
-  //     setUserAccount({
-  //         id: "1jdkb",
-  //         email: "karellehofler@gmail.com",
-  //         password: "password",
-  //         joinedAt: 1666985864663,
-  //         hasProfile: "234abe3"
-  // });
-  //     setUserProfile({
-  //         id: "234abe3",
-  //         displayName: "Karelle Hofler",
-  //         firstName: "Karelle",
-  //         lastName: "Hofler",
-  //         joinedAt: 1666985864663,
-  //         belongsTo: "1jdkb"
-  //        });
-  // }, [])
+  // TODO: check cookies for user
+  useEffect(() => {
+      setUserAccount({
+          id: "1jdkb",
+          email: "karellehofler@gmail.com",
+          password: "password",
+          joinedAt: 1666985864663,
+          profileId: "234abe3"
+  });
+      setUserProfile({
+          id: "234abe3",
+          displayName: "Karelle Hofler",
+          firstName: "Karelle",
+          lastName: "Hofler",
+          joinedAt: 1666985864663,
+          belongsTo: "1jdkb"
+         });
+  }, [])
 
   return (
     <UserContext.Provider value={{ userProfile, userAccount }}>

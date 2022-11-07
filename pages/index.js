@@ -23,11 +23,9 @@ export default function Index() {
   };
 
   return (
-    <BaseLayout>
-      <main className="mt-6">
-        <h1>The Home page</h1>
-        <button onClick={handleTestRes}>Test API</button>
-      </main>
-    </BaseLayout>
+    <main className="mt-6">
+      <h1>The Home page</h1>
+      <button onClick={handleTestRes}>Test API</button>
+    </main>
   );
 }

@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
-import CreateNoteButton from "../buttons/CreateNoteButton";
+import CreatePostButton from "../buttons/CreatePostButton";
 import { Block, Heading } from "react-bulma-components";
-import { ThemeContext } from "../../context/ThemeProvider";
-import { NotesContext } from "../../context/NotesProvider";
+import { PostsContext } from "../../context/PostsProvider";
 
 const NoteSummary = ({ data }) => {
-  const { theme } = useContext(ThemeContext);
-
   return (
     <>
       <Block key={`note-${data.id}`}>
@@ -32,8 +29,7 @@ const NoteSummary = ({ data }) => {
 };
 
 const NotesList = () => {
-  const { notes, getNote } = useContext(NotesContext);
-  const { theme } = useContext(ThemeContext);
+  const { notes, getNote } = useContext(PostsContext);
 
   return (
     <div
@@ -51,7 +47,7 @@ const NotesList = () => {
           style={{ width: "100%" }}
           className="flex-row is-justify-content-flex-end mr-5"
         >
-          <CreateNoteButton justifyContent={"flex-end"} />
+          <CreatePostButton justifyContent={"flex-end"} />
         </div>
         <Heading renderAs="h1" className={`${theme.text.classStyle} `}>
           Welcome
@@ -78,8 +74,6 @@ const NotesList = () => {
 };
 
 const NoNotesDetected = () => {
-  const { theme } = useContext(ThemeContext);
-
   return (
     <div
       id="notes-init"
@@ -95,7 +89,7 @@ const NoNotesDetected = () => {
         >
           No Notes Yet.
         </Heading>
-        <CreateNoteButton />
+        <CreatePostButton />
       </Block>
     </div>
   );

@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
-import { ThemeContext, light, dark } from "@/context/ThemeProvider";
-import Modal from "../../custom-bulma/Modal";
+import Modal from "../../modal/Modal";
 import { MarkdownHelperModal } from "../../markdown-guide";
 
 export default function HelpButtonAndModal() {
-  const { toggle } = useContext(ThemeContext);
+  const { toggle } = useContext();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => setIsOpen(!isOpen);

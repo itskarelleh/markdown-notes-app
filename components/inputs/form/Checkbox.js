@@ -5,7 +5,7 @@ export default function Checkbox({ helper, ...props }) {
 
     return (
         <>
-            <input type="checkbox" {...props} /> {helper}
+            <input className="mr-3" type="checkbox" {...props} /> {helper}
         </>
 )
 }

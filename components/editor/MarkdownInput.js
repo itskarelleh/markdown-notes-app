@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
-import { NotesContext } from "../../context/NotesProvider";
-import { ThemeContext } from "../../context/ThemeProvider";
+import { PostsContext } from "../../context/PostsProvider";
 import TextareaAutosize from "react-textarea-autosize";
 import { GrammarlyEditorPlugin } from "@grammarly/editor-sdk-react";
 
 function MarkdownInput({ isDemo }) {
-  const { selected, updateNote } = useContext(NotesContext);
-  const { theme } = useContext(ThemeContext);
+  const { selected, updateNote } = useContext(PostsContext);
   const [demoContent, setDemoContent] = useState("");
 
   const textareaStyle = {

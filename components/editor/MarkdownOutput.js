@@ -1,11 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import { NotesContext } from "../../context/NotesProvider";
-import { ThemeContext } from "../../context/ThemeProvider";
+import { PostsContext } from "../../context/PostsProvider";
 import { rawMarkup } from "../../utils";
 
 export default function MarkdownOutput() {
-  const { selected } = useContext(NotesContext);
-  const { theme } = useContext(ThemeContext);
+  const { selected } = useContext(PostsContext);
   const [markup, setMarkup] = useState("");
 
   useEffect(() => {

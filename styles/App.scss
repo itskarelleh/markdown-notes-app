@@ -9,6 +9,7 @@ body.dark > * {
 
 .navbar .dark {
 }
+
 strong {
     color: inherit;
 }
@@ -60,7 +61,6 @@ strong {
     height: 100vh;
     position: fixed;
     left: 0;
-    background: white;
     top: 0;
 }
 
@@ -149,7 +149,6 @@ strong {
     position: absolute;
     width: 15rem;
     z-index: 999;
-    background: #363636;
     padding: 0;
     left: 0;
     margin: 0;

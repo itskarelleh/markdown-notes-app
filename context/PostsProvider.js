@@ -4,18 +4,18 @@ import { dateFormatForNote } from "../utils";
 import { db, transferLocalStorageToIndexedDB } from "@/db/indexedDB";
 import { useLiveQuery } from "dexie-react-hooks";
 
-const NotesContext = React.createContext();
+const PostsContext = React.createContext();
 
 /*
 11/2/22 - The notes provider is also used for getting documents.
 Documents - the main post type in this app. They were originally called notes in version 1
 Now in v2 development, notes a simply used as reminders while documents are the main post type for
 users to write documents and share them with other users for collaboration as well as for publishing
-The name for the NotesContext and the NotesProvider may change in the future but for now, these
+The name for the PostsContext and the PostsProvider may change in the future but for now, these
 are left unchanged
 */
 
-function NotesProvider({ children }) {
+function PostsProvider({ children }) {
   const [notes, setNotes] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [selected, setSelected] = useState({});
@@ -119,7 +119,7 @@ function NotesProvider({ children }) {
   // }
 
   return (
-    <NotesContext.Provider
+    <PostsContext.Provider
       value={{
         notes,
         selected,
@@ -131,8 +131,8 @@ function NotesProvider({ children }) {
       }}
     >
       {children}
-    </NotesContext.Provider>
+    </PostsContext.Provider>
   );
 }
 
-export { NotesContext, NotesProvider };
+export { PostsContext, PostsProvider };

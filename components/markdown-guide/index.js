@@ -9,7 +9,6 @@ import {
 } from "./panel-content";
 import { rawMarkup } from "@/utils/index";
 import { useContext } from "react";
-import { ThemeContext, dark } from "@/context/ThemeProvider";
 
 const colWidth = {
   minWidth: "50%",
@@ -71,7 +70,7 @@ const MarkdownHelperPanelSection = ({ title, id, children }) => (
 );
 
 function MarkdownGuideModal() {
-  const { toggle } = useContext(ThemeContext);
+  const { toggle } = useContext();
 
   return (
     <>

@@ -12,7 +12,7 @@ export default function Sidebar({ ...props }) {
           <p>Welcome {userProfile.displayName}</p>
         </div>
         <Menu style={{ marginTop: "5rem", padding: "0 1rem" }}>
-          <CreateNoteButton label="Create new note" />
+          <CreatePostButton label="Create new note" />
           <p className="menu-label">Notes</p>
           <ul className="mt-5 note-summaries">
             {notes &&

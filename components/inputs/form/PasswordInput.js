@@ -9,7 +9,7 @@ export default function PasswordInput({ ...props }) {
   };
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row w-full">
       <Input 
         className="input w-full"
         type={passwordShown ? "text" : "password"}

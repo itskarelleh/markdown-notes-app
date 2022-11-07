@@ -1,15 +1,13 @@
 import React, { useContext } from "react";
-import { NotesContext } from "@/context/NotesProvider";
+import { PostsContext } from "@/context/PostsProvider";
 import { EditorContext } from "@/context/EditorProvider";
 import MarkdownInput from "./MarkdownInput";
 import MarkdownOutput from "./MarkdownOutput";
 import EditorToolbar from "./EditorToolbar";
-import { ThemeContext } from "@/context/ThemeProvider";
 import MainMenu from "./MainMenu";
 
 function Editor({ isDemoMode }) {
-  const { theme } = useContext(ThemeContext);
-  const { selected } = useContext(NotesContext);
+  const { selected } = useContext(PostsContext);
   const { isEditing } = useContext(EditorContext);
 
   if (!selected || Object.keys(selected).length === 0) {

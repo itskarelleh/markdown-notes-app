@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
-import CreateNoteButton from "../inputs/CreateNoteButton";
-import { ThemeContext } from "../../context/ThemeProvider";
-import { NotesContext } from "../../context/NotesProvider";
+import CreatePostButton from "../inputs/buttons/CreatePostButton";
+import { PostsContext } from "@/context/PostsProvider";
 
 const NoteSummary = ({ data }) => {
-  const { theme } = useContext(ThemeContext);
-
   return (
     <>
       <div key={`note-${data.id}`}>
@@ -30,8 +27,7 @@ const NoteSummary = ({ data }) => {
 };
 
 const NotesList = () => {
-  const { notes, getNote } = useContext(NotesContext);
-  const { theme } = useContext(ThemeContext);
+  const { notes, getNote } = useContext(PostsContext);
 
   return (
     <div
@@ -49,7 +45,7 @@ const NotesList = () => {
           style={{ width: "100%" }}
           className="flex-row is-justify-content-flex-end mr-5"
         >
-          <CreateNoteButton justifyContent={"flex-end"} />
+          <CreatePostButton justifyContent={"flex-end"} />
         </div>
         <h1 className={`${theme.text.classStyle} `}>Welcome</h1>
         <div
@@ -74,8 +70,6 @@ const NotesList = () => {
 };
 
 const NoNotesDetected = () => {
-  const { theme } = useContext(ThemeContext);
-
   return (
     <div
       id="notes-init"
@@ -87,7 +81,7 @@ const NoNotesDetected = () => {
         <h2 className={`${theme.text.classStyle}`} weight="semibold">
           No Notes Yet.
         </h2>
-        <CreateNoteButton />
+        <CreatePostButton />
       </div>
     </div>
   );

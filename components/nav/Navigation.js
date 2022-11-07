@@ -1,16 +1,12 @@
 import React, { useContext } from "react";
 import ToggleMenu from "./ToggleMenu";
-import { ThemeContext } from "@/context/ThemeProvider";
 import Link from "next/link";
 import { UserContext } from "@/context/UserProvider";
 import UserAvatar from "./UserAvatar";
 
 export default function Navigation() {
-  const { theme } = useContext(ThemeContext);
-  const { userAccount, userProfile } = useContext(UserContext);
-
   const MenuRightNoAuth = () => (
-    <div className="nav-end navbar-end">
+    <div className="navbar-end">
       <ul className="navbar-item">
         <li className="mr-3" style={{ display: "inline" }}>
           <Link className="navbar-link" href="/signin">
@@ -26,39 +22,27 @@ export default function Navigation() {
     </div>
   );
 
-  const MenuRightUserAuth = () => (
-    <div>
-      <UserAvatar />
-    </div>
-  );
+  const MenuRightUserAuth = () => <div className="nav-end navbar-end"></div>;
+
   return (
     <nav
       role="navigation"
       aria-label="main navigation"
-      className={`navbar is-fixed-top`}
+      className="relative w-full mx-auto navbar fixed top-0 left-0 right-0 p-6"
     >
       <div
-        className="block ml-2 flex-row is-align-items-center"
+        className="w-full flex flex-row justify-between"
         style={{ height: "100%" }}
       >
-        <ToggleMenu />
-        <div
-          // style={{ width: "12rem", paddingLeft: "1.25rem" }}
-          className="flex nav-branding navbar-brand flex-col m-0 is-justify-content-center"
-        >
+        <div className="flex flex-row ml-4 justify-center navbar-start">
+          <ToggleMenu />
           <Link classsName="navbar-item" href="/">
-            <h1 className={`my-0 text-2xl text-bold`}>Markdown Notes</h1>
+            <h1 className="my-0 ml-4 text-2xl relative z-999">
+              Markdown Notes
+            </h1>
           </Link>
         </div>
-        {/* {userProfile !== null || Object.keys(userProfile) >= 1 ? (
-          <MenuRightUserAuth />
-        ) : ( */}
-        <MenuRightNoAuth />
-        {/* )} */}
-        {/*TODO: add ThemeToggleButton will either be under settings or the toggle menu component */}
-        {/* <div className="theme-toggle-btn">
-          <ThemeToggleButton />
-        </div> */}
+        {/* {userProfile ? <MenuRightUserAuth /> : <MenuRightNoAuth />} */}
       </div>
     </nav>
   );

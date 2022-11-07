@@ -29,7 +29,7 @@ export default function SignUp() {
   };
 
   return (
-    <BaseLayout style={{ height: "100vh", overflow: "hidden", scroll: "none" }}>
+    <main style={{ height: "100vh", overflow: "hidden", scroll: "none" }}>
       <FormWrapper>
         <Form onSubmit={handleSubmit} className="w-1/2 mx-auto">
           <FormHeading title="Sign Up" />
@@ -70,6 +70,6 @@ export default function SignUp() {
           </InputField>
         </Form>
       </FormWrapper>
-    </BaseLayout>
+    </main>
   );
 }

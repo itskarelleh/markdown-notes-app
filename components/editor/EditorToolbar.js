@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { NotesContext } from "@/context/NotesProvider";
-import BackButton from "../inputs/buttonsbuttons/buttons/buttons/buttons/BackButton";
-import DeleteNoteButton from "../inputs/buttonsbuttons/DeleteNoteButton";
-import EditNoteButton from "../inputs/buttonsbuttons/EditNoteButton";
-import HelpButtonAndModal from "../inputs/buttonsbuttons/HelpButtonAndModal";
+import { PostsContext } from "@/context/PostsProvider";
+import BackButton from "../inputs/buttons/BackButton";
+import DeleteNoteButton from "../inputs/buttons/DeleteNoteButton";
+import EditNoteButton from "../inputs/buttons/EditNoteButton";
+import HelpButtonAndModal from "../inputs/buttons/HelpButtonAndModal";
 
 export default function EditorToolbar() {
-  const { selected } = useContext(NotesContext);
+  const { selected } = useContext(PostsContext);
 
   return (
     <div

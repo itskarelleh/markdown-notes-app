@@ -1,23 +1,22 @@
-import React from 'react';
-import { useContext } from 'react';
-import { NotesContext } from '../../context/NotesProvider';
-import { NoNotesDetected, NotesList } from '../notes';
+import React from "react";
+import { useContext } from "react";
+import { PostsContext } from "../../context/PostsProvider";
+import { NoNotesDetected, NotesList } from "../notes";
 
 export default function MainMenu() {
+  const { notes } = useContext(PostsContext);
 
-    const { notes } = useContext(NotesContext);
-
-    if(notes.length < 1) {
-        return (
-            <>
-                <NoNotesDetected />
-            </>
-        )
-    }
-
+  if (notes.length < 1) {
     return (
-        <>
-            <NotesList />
-        </>
-    )
-} 
+      <>
+        <NoNotesDetected />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <NotesList />
+    </>
+  );
+}
