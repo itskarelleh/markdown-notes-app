@@ -2,10 +2,9 @@ import React, { useState, useContext } from "react";
 import { PostsContext } from "@/context/PostsProvider";
 import Modal from "../../modal/Modal";
 
-const DeleteNoteButton = ({ id }) => {
+const DeleteNoteButton = ({ id, title }) => {
   const { deleteNote } = useContext(PostsContext);
   const [isOpen, setIsOpen] = useState(false);
-  const { toggle } = useContext();
 
   return (
     <>
@@ -18,9 +17,7 @@ const DeleteNoteButton = ({ id }) => {
       </button>
       <Modal onClose={() => setIsOpen((prev) => !prev)} open={isOpen}>
         <div
-          className={`box ${
-            toggle ? light.panel.classStyle : dark.panel.classStyle
-          }`}
+          className={`box`}
         >
           <button
             className="delete"
@@ -29,14 +26,10 @@ const DeleteNoteButton = ({ id }) => {
           ></button>
           <div className="block">
             <h1
-              textColor="danger"
-              className={toggle ? light.text.classStyle : dark.text.classStyle}
             >
               Deleting
             </h1>
-            <h2
-              className={toggle ? light.text.classStyle : dark.text.classStyle}
-            >
+            <h2>
               Are you sure you want to delete this note?{" "}
             </h2>
           </div>

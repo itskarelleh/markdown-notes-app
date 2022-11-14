@@ -13,14 +13,9 @@ export default function MarkdownOutput() {
   return (
     <>
       <div className="content-spacing">
-        <header className={theme.text.classStyle}>{selected.title}</header>
-        {selected.updated_at && (
-          <div className={theme.text.classStyle}>{selected.updated_at}</div>
-        )}
-        <div
-          className={`${theme.text.classStyle} content-body`}
-          dangerouslySetInnerHTML={{ __html: markup }}
-        ></div>
+        <header>{selected.title}</header>
+        {selected.updated_at && <div>{selected.updated_at}</div>}
+        <div dangerouslySetInnerHTML={{ __html: markup }}></div>
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import ToggleMenu from "./ToggleMenu";
 import Link from "next/link";
-import { UserContext } from "@/context/UserProvider";
+import { AuthContext } from "@/context/AuthProvider";
 import UserAvatar from "./UserAvatar";
 
 export default function Navigation() {
@@ -42,7 +42,7 @@ export default function Navigation() {
             </h1>
           </Link>
         </div>
-        {/* {userProfile ? <MenuRightUserAuth /> : <MenuRightNoAuth />} */}
+        <MenuRightNoAuth />
       </div>
     </nav>
   );

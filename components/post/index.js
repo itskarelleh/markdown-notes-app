@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import CreatePostButton from "../buttons/CreatePostButton";
-import { Block, Heading } from "react-bulma-components";
 import { PostsContext } from "../../context/PostsProvider";
 
 const NoteSummary = ({ data }) => {

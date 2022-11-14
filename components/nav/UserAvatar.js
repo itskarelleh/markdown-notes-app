@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { UserContext } from "../../context/UserProvider";
+import { AuthContext } from "../../context/AuthProvider";
 
 export default function UserAvatar({ userProfile }) {
   return (

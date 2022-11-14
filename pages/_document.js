@@ -20,14 +20,12 @@ export default function Document() {
         <Main />
         <NextScript />
         <script type="text/javascript" src="src/purify.js"></script>
-        <script src="bulma-toast.min.js"></script>
-        <script src="/node_modules/bulma-extensions/bulma-switch/dist/bulma-switch.min.js"></script>
         <script
           type="module"
           src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
         ></script>
         <script
-          nomodule
+          noModule
           src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
       </body>

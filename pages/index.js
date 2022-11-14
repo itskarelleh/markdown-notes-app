@@ -3,7 +3,7 @@ import { useContext } from "react";
 import Navigation from "@/components/nav/Navigation";
 import Editor from "@/components/editor";
 import BaseLayout from "../components/BaseLayout";
-import { UserContext } from "../context/UserProvider";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function Index() {
   const handleTestRes = async () => {
@@ -29,3 +29,16 @@ export default function Index() {
     </main>
   );
 }
+
+// export default (GetServerSidePropsFunction) = () async (ctx) => {
+//   const token = ctx.req.cookies?.jwt || null;
+
+//   const { data } = await authenticate(...);
+
+//   if (!data) {
+//     redirect: {
+//       destination: '/',
+//         permanent: false,
+//     }
+//   }
+// }

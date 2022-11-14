@@ -9,16 +9,13 @@ const NoteSummary = ({ data }) => {
         <div>
           <h2
             style={{ display: "inline" }}
-            className={`note-summary-title text-sm ${theme.text.classStyle}`}
+            className={`note-summary-title text-sm`}
           >
             {data.title}
           </h2>
         </div>
 
-        <small
-          style={{ marginBottom: "1rem" }}
-          className={`${theme.text.classStyle} date-timestamp`}
-        >
+        <small style={{ marginBottom: "1rem" }} className={`date-timestamp`}>
           {data.created_at}
         </small>
       </div>
@@ -32,12 +29,10 @@ const NotesList = () => {
   return (
     <div
       id="notes-init"
-      className={`m-0 mt-4 p-4 ${theme.background.classStyle} 
-        is-widescreen flex-col is-justify-content-center is-align-content-center`}
+      className={`m-0 mt-4 p-4 flex-col is-justify-content-center is-align-content-center`}
     >
       <div
-        className={`${theme.panel.classStyle}  
-            flex is-align-self-center flex-col p-4
+        className={`flex is-align-self-center flex-col p-4
             is-justify-content-center is-align-items-center`}
       >
         <div
@@ -47,7 +42,7 @@ const NotesList = () => {
         >
           <CreatePostButton justifyContent={"flex-end"} />
         </div>
-        <h1 className={`${theme.text.classStyle} `}>Welcome</h1>
+        <h1>Welcome</h1>
         <div
           style={{ width: "100%", padding: "0rem 2rem", overflowY: "scroll" }}
         >
@@ -73,14 +68,11 @@ const NoNotesDetected = () => {
   return (
     <div
       id="notes-init"
-      className={`m-0 p-4 ${theme.background.classStyle} } 
-    is-widescreen flex-col is-justify-content-center is-align-content-center`}
+      className={`m-0 p-4 flex-col is-justify-content-center is-align-content-center`}
       style={{ height: "100%" }}
     >
       <div className="flex is-align-self-center flex-col is-justify-content-center is-align-items-center">
-        <h2 className={`${theme.text.classStyle}`} weight="semibold">
-          No Notes Yet.
-        </h2>
+        <h2 weight="semibold">No Notes Yet.</h2>
         <CreatePostButton />
       </div>
     </div>

@@ -6,7 +6,7 @@ import "@/styles/markdown-guide.scss";
 import "@/styles/App.scss";
 import "@/styles/index.scss";
 import { ThemeProvider } from "next-themes";
-import { UserProvider } from "@/context/UserProvider";
+import { AuthProvider } from "@/context/AuthProvider";
 import Navigation from "@/components/nav/Navigation";
 import { PostsProvider } from "@/context/PostsProvider";
 import BaseLayout from "@/components/BaseLayout";
@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <DefaultSeo {...SEO} />
       </Head>
-      <UserProvider>
+      <AuthProvider>
         <ThemeProvider attribute="class">
           <PostsProvider>
             <BaseLayout>
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
             </BaseLayout>
           </PostsProvider>
         </ThemeProvider>
-      </UserProvider>
+      </AuthProvider>
     </>
   );
 }

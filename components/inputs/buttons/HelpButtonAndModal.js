@@ -3,7 +3,6 @@ import Modal from "../../modal/Modal";
 import { MarkdownHelperModal } from "../../markdown-guide";
 
 export default function HelpButtonAndModal() {
-  const { toggle } = useContext();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => setIsOpen(!isOpen);
@@ -19,25 +18,16 @@ export default function HelpButtonAndModal() {
       </button>
       <Modal width={"75%"} open={isOpen} onClose={handleOpen}>
         <header
-          className={`modal-card-head 
-                ${!toggle ? light.text.classStyle : dark.text.classStyle}
-                ${!toggle ? light.panel.classStyle : dark.panel.classStyle}`}
-        >
+          className={`modal-card-head`}>
           <p
-            className={`modal-card-title ${
-              !toggle ? light.text.classStyle : dark.text.classStyle
-            }`}
+            className={`modal-card-title`}
           >
             Help
           </p>
           <button onClick={handleOpen} className="delete" aria-label="close" />
         </header>
         <div
-          className={`content-wrapper ${
-            !toggle ? light.panel.classStyle : dark.panel.classStyle
-          } 
-                ${!toggle ? light.text.classStyle : dark.text.classStyle}`}
-        >
+          className={`content-wrapper`}>
           <MarkdownHelperModal />
         </div>
       </Modal>

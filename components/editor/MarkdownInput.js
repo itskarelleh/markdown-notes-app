@@ -28,7 +28,7 @@ function MarkdownInput({ isDemo }) {
                 ? (e) => setDemoContent(e.target.value)
                 : (e) => updateNote(e)
             }
-            className={`${theme.text.classStyle} textarea-input textarea-size`}
+            className={`textarea-input textarea-size`}
           />
         </GrammarlyEditorPlugin>
       </form>

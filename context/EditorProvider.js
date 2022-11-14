@@ -4,6 +4,7 @@ const EditorContext = React.createContext({});
 
 function EditorProvider({ children }) {
   const [isTextView, setIsTextView] = useState(false);
+  const [editingMode, setEditingMode] = useState("markdown");
   const [isMobile, setIsMobile] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isDemoMode, setIsDemoMode] = useState(false);

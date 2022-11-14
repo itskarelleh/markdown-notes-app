@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Input from "./Input";
 
-export default function PasswordInput({ ...props }) {
+export default function PasswordInput({ errors, touched, ...props }) {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePassword = () => {
@@ -10,7 +10,9 @@ export default function PasswordInput({ ...props }) {
 
   return (
     <div className="flex flex-row w-full">
-      <Input 
+      <Input
+        errors={errors}
+        touched={touched}
         className="input w-full"
         type={passwordShown ? "text" : "password"}
         {...props}

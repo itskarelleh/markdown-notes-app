@@ -1,44 +1,64 @@
-import React from "react";
+import React, { useContext } from "react";
 import Form from "@/components/inputs/form/Form";
-import BaseLayout from "@/components/BaseLayout";
+import Main from "@/components/Main";
 import InputField from "@/components/inputs/form/InputField";
 import PasswordInput from "@/components/inputs/form/PasswordInput";
-import Input from "../../components/inputs/form/Input";
-import FormHeading from "../../components/inputs/form/FormHeading";
-import FormWrapper from "../../components/inputs/form/FormWrapper";
+import Button from "@/components/inputs/buttons/Button";
+import Checkbox from "@/components/inputs/form/Checkbox";
+import Input from "@/components/inputs/form/Input";
+import FormHeading from "@/components/inputs/form/FormHeading";
+import FormWrapper from "@/components/inputs/form/FormWrapper";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { AuthContext } from "@/context/AuthProvider";
 
 export default function SignIn() {
-  const handleSubmit = async () => {
-    //   const req = await fetch(
-    //     `${process.env.NEXT_PUBLIC_SERVER_URL}${process.env.NEXT_PUBLIC_API_ENDPOINT}/signin`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({}),
-    //     }
-    //   );
-  };
+  const { authenticateUser } = useContext(AuthContext);
+
+  const formik = useFormik({
+    initialValues: { email: "", password: "" },
+    validationSchema: Yup.object({
+      email: Yup.string().email().required("Email is required"),
+      password: Yup.string()
+        .required()
+        .min(8, "Password is too short - should be at least 8 characters."),
+    }),
+    onSubmit: (values) => {
+      authenticateUser(values);
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
-    <BaseLayout style={{ height: "100vh", overflow: "hidden", scroll: "none" }}>
+    <Main>
       <FormWrapper>
-        <Form className="w-1/2 mx-auto">
-          <FormHeading title="Sign In" />
-          <InputField labelFor="accountEmail" labelName="Email">
-            <Input name="accountEmail" />
+        <Form onSubmit={formik.handleSubmit} className="w-1/2 h-3/4 mx-auto">
+          <FormHeading title="Sign Up" />
+          <InputField labelFor="email" labelName="Email">
+            <Input
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              type="email"
+              name="email"
+            />
           </InputField>
-          <InputField labelFor="accountPassword" labelName="Password">
-            <PasswordInput name="accountPassword" />
+          <InputField labelFor="password" labelName="Password">
+            <PasswordInput
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              name="password"
+            />
+          </InputField>
+          <InputField classname="flex-row">
+            <Checkbox helper={<>Remember Me</>} />
           </InputField>
           <InputField justifyContent="justify-end">
-            <button className="bg-white text-black p-2" type="submit">
-              Sign Up
-            </button>
+            <Button type="submit" label="Submit" />
           </InputField>
         </Form>
       </FormWrapper>
-    </BaseLayout>
+    </Main>
   );
 }

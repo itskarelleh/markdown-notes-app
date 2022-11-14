@@ -1,6 +1,9 @@
 {
   "short_name": "Markdown Notes",
   "name": "Markdown Notes Editor",
+  "permissions": [
+    "cookies"
+  ],
   "icons": [
     {
       "src": "favicon.ico",

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { PostsContext } from "@/context/PostsProvider";
 import Modal from "../modal/Modal";
 import CreatePostButton from "../inputs/buttons/CreatePostButton";
-import { UserContext } from "@/context/UserProvider";
+import { AuthContext } from "@/context/AuthProvider";
 import ThemeToggleButton from "../inputs/buttons/ThemeToggleButton";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -27,7 +27,7 @@ const LinksMenu = ({ links }) => (
 );
 export default function ToggleMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const { userProfile } = useContext(UserContext);
+  const { userProfile } = useContext(AuthContext);
 
   const authLinks = [
     { label: "Overview", url: "/overview" },

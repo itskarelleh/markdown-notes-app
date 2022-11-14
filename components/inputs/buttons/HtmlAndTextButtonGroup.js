@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { EditorContext } from '@/context/EditorProvider';
-import { Button } from 'react-bulma-components';
 
 const HtmlAndTextButton = () => {
 
@@ -15,7 +14,6 @@ const HtmlAndTextButton = () => {
             title={`Click to see in HTML`} 
             size="small" onClick={toggleTextView}>HTML</Button>
         </div>
-        
     )
 }
 
