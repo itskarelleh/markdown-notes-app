@@ -6,10 +6,10 @@ settings:
 
 dependencies:
   '@testing-library/jest-dom':
-    specifier: ^5.16.5
+    specifier: ^5.17.0
     version: 5.17.0
   '@testing-library/react':
-    specifier: ^13.3.0
+    specifier: ^13.4.0
     version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
   '@testing-library/user-event':
     specifier: ^13.5.0
@@ -21,25 +21,25 @@ dependencies:
     specifier: ^2.0.4
     version: 2.0.4
   bulma-toast:
-    specifier: ^2.4.1
+    specifier: ^2.4.3
     version: 2.4.3
   dexie:
-    specifier: ^3.2.2
+    specifier: ^3.2.4
     version: 3.2.4
   dexie-react-hooks:
-    specifier: ^1.1.1
+    specifier: ^1.1.7
     version: 1.1.7(@types/react@18.2.47)(dexie@3.2.4)(react@18.2.0)
   dompurify:
-    specifier: ^2.3.10
+    specifier: ^2.4.7
     version: 2.4.7
   framer-motion:
-    specifier: ^7.6.2
+    specifier: ^7.10.3
     version: 7.10.3(react-dom@18.2.0)(react@18.2.0)
   jsdom:
-    specifier: ^20.0.0
+    specifier: ^20.0.3
     version: 20.0.3
   marked:
-    specifier: ^4.0.18
+    specifier: ^4.3.0
     version: 4.3.0
   react:
     specifier: ^18.2.0
@@ -51,16 +51,16 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
   react-router-dom:
-    specifier: ^6.3.0
+    specifier: ^6.21.1
     version: 6.21.1(react-dom@18.2.0)(react@18.2.0)
   react-scripts:
     specifier: ^5.0.1
     version: 5.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.56.0)(react@18.2.0)(sass@1.69.7)(typescript@5.3.3)
   react-textarea-autosize:
-    specifier: ^8.3.4
+    specifier: ^8.5.3
     version: 8.5.3(@types/react@18.2.47)(react@18.2.0)
   sass:
-    specifier: ^1.55.0
+    specifier: ^1.69.7
     version: 1.69.7
   uuid:
     specifier: ^8.3.2
