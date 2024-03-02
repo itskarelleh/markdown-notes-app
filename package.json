@@ -9,7 +9,7 @@
     "bulma": "^0.9.4",
     "bulma-switch": "^2.0.4",
     "bulma-toast": "^2.4.3",
-    "dexie": "^3.2.4",
+    "dexie": "^3.2.5",
     "dexie-react-hooks": "^1.1.7",
     "dompurify": "^2.4.7",
     "framer-motion": "^7.10.3",
